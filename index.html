@@ -3,756 +3,1829 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>REX Certified · Tổng quan 10 Buổi</title>
+<title>REX Certified — Cố vấn BDS Chuyên nghiệp | Khai giảng 15/05/2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:-apple-system,'Segoe UI',Arial,sans-serif; overflow:hidden; width:100vw; height:100vh; }
-.slide { display:none; width:100vw; height:100vh; position:relative; overflow:hidden; padding-bottom:36px; flex-direction:column; justify-content:center; align-items:center; }
-.slide.active { display:flex; }
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS — Single source of truth
+═══════════════════════════════════════════════════════════════ */
+:root {
+  /* Colors */
+  --navy:       #0C1F3F;
+  --navy2:      #1A3460;
+  --navy3:      #2C4A7C;
+  --gold:       #B8922A;
+  --gold2:      #D4A83C;
+  --gold-bg:    #FAF6ED;
+  --cream:      #F8F6F1;
+  --cream2:     #EEEBe4;
+  --white:      #FFFFFF;
+  --red:        #DC2626;
+  --green:      #16A34A;
 
-.bg-cover,.bg-closing { background-color:#1B3A5C; background-image:radial-gradient(rgba(196,164,78,0.18) 1.3px,transparent 1.3px); background-size:30px 30px; }
-.bg-cover::before,.bg-closing::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 50%,rgba(27,58,92,0.55) 25%,transparent 65%); pointer-events:none; z-index:1; }
-.bg-agenda { background-color:#2e1c06; background-image:radial-gradient(rgba(196,164,78,0.20) 1.3px,transparent 1.3px); background-size:30px 30px; }
-.bg-agenda::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 50%,rgba(46,28,6,0.5) 25%,transparent 65%); pointer-events:none; z-index:1; }
-.bg-section { background-color:#f0e4c8; background-image:linear-gradient(rgba(168,128,32,0.14) 1px,transparent 1px),linear-gradient(90deg,rgba(168,128,32,0.14) 1px,transparent 1px); background-size:40px 40px; }
-.bg-section::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 50%,#f0e4c8 30%,transparent 65%); pointer-events:none; z-index:1; }
-.bg-content { background:#ffffff; background-image:radial-gradient(rgba(168,128,32,0.22) 1.5px,transparent 1.5px); background-size:28px 28px; }
-.bg-content::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 50%,#ffffff 30%,transparent 65%); pointer-events:none; z-index:1; }
-.bg-practice { background:#fffbf2; background-image:radial-gradient(rgba(168,128,32,0.18) 1.4px,transparent 1.4px); background-size:28px 28px; }
-.bg-practice::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 50%,#fffbf2 32%,transparent 66%); pointer-events:none; z-index:1; }
-.border-practice { position:absolute; inset:0; border:2px solid rgba(196,164,78,0.4); pointer-events:none; z-index:5; }
+  /* Text on light bg */
+  --t1: #0C1F3F;   /* headings */
+  --t2: #2C3E5A;   /* body */
+  --t3: #4A5E75;   /* secondary */
+  --t4: #5A6D84;   /* tertiary — minimum for 14px+ text */
 
-.bar-top   { position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,transparent 6%,#C4A44E 24%,#C4A44E 76%,transparent 94%); z-index:5; }
-.bar-left  { position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,transparent 5%,#C4A44E 22%,#C4A44E 78%,transparent 95%); z-index:5; }
-.bar-right { position:absolute; right:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,transparent 5%,rgba(196,164,78,0.3) 22%,rgba(196,164,78,0.3) 78%,transparent 95%); z-index:5; }
+  /* Text on dark bg */
+  --d1: rgba(255,255,255,1);
+  --d2: rgba(255,255,255,.8);
+  --d3: rgba(255,255,255,.6);
+  --d4: rgba(255,255,255,.4);
 
-.footer-dark  { position:absolute; bottom:0; left:0; right:0; height:36px; display:flex; align-items:center; justify-content:center; font-size:11px; letter-spacing:2.5px; font-variant:small-caps; text-transform:uppercase; color:#C4A44E; background:rgba(0,0,0,0.3); border-top:1px solid rgba(196,164,78,0.2); z-index:10; }
-.footer-light { position:absolute; bottom:0; left:0; right:0; height:36px; display:flex; align-items:center; justify-content:center; font-size:11px; letter-spacing:2.5px; font-variant:small-caps; text-transform:uppercase; color:#8a6010; background:rgba(255,255,255,0.92); border-top:1px solid rgba(168,128,32,0.2); z-index:10; }
-.footer-parchment { position:absolute; bottom:0; left:0; right:0; height:36px; display:flex; align-items:center; justify-content:center; font-size:11px; letter-spacing:2.5px; font-variant:small-caps; text-transform:uppercase; color:#8a6010; background:rgba(240,228,200,0.92); border-top:1px solid rgba(168,128,32,0.2); z-index:10; }
+  /* Borders */
+  --b1: rgba(12,31,63,.1);
+  --b2: rgba(12,31,63,.06);
+  --bd: rgba(255,255,255,.1);
 
-.nav { position:fixed; bottom:44px; right:24px; display:flex; align-items:center; gap:10px; z-index:200; }
-.nav-counter { font-size:12px; color:#aaa; }
-.nav-btn { background:rgba(168,128,32,0.08); border:1px solid rgba(168,128,32,0.28); color:#8a6010; padding:6px 14px; border-radius:6px; font-size:13px; cursor:pointer; transition:.18s; }
-.nav-btn:hover { background:rgba(168,128,32,0.17); }
+  /* Shadows */
+  --s1: 0 1px 4px rgba(12,31,63,.06), 0 4px 16px rgba(12,31,63,.06);
+  --s2: 0 4px 16px rgba(12,31,63,.08), 0 16px 48px rgba(12,31,63,.1);
+  --s3: 0 8px 32px rgba(12,31,63,.12), 0 32px 80px rgba(12,31,63,.14);
 
-.content { position:relative; z-index:3; width:100%; max-width:1120px; padding:0 44px; }
-.card { background:#ffffff; border:1.5px solid rgba(168,128,32,0.2); border-top:3px solid #9a7218; border-radius:14px; padding:28px 24px 24px; box-shadow:0 4px 22px rgba(0,0,0,0.09),0 1px 4px rgba(0,0,0,0.06); position:relative; overflow:hidden; }
-.card-dark { background:rgba(255,255,255,0.06); border:1.5px solid rgba(196,164,78,0.25); border-top:3px solid #C4A44E; border-radius:14px; padding:28px 24px 24px; position:relative; overflow:hidden; }
-.cnum  { position:absolute; bottom:-4px; right:12px; font-size:80px; font-weight:900; color:rgba(168,128,32,0.07); line-height:1; pointer-events:none; }
-.cnum-d{ position:absolute; bottom:-4px; right:12px; font-size:80px; font-weight:900; color:rgba(196,164,78,0.12); line-height:1; pointer-events:none; }
-.cl  { font-size:11px; letter-spacing:2.5px; color:#8a6010; text-transform:uppercase; font-weight:900; margin-bottom:8px; }
-.cl-d{ font-size:11px; letter-spacing:2.5px; color:#C4A44E; text-transform:uppercase; font-weight:900; margin-bottom:8px; }
-.ct  { font-size:18px; font-weight:900; color:#0d0d0d; margin-bottom:7px; line-height:1.3; text-transform:uppercase; }
-.ct-d{ font-size:18px; font-weight:900; color:#ffffff; margin-bottom:7px; line-height:1.3; text-transform:uppercase; }
-.cb  { font-size:15px; color:#2a2a2a; line-height:1.6; font-weight:500; }
-.cb-d{ font-size:15px; color:rgba(255,255,255,0.82); line-height:1.6; font-weight:500; }
-.ctime { font-size:11px; font-weight:700; color:#C4A44E; letter-spacing:1.5px; text-transform:uppercase; margin-top:10px; }
-.g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
-.g2 { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  /* Radii */
+  --r1: 10px;
+  --r2: 16px;
+  --r3: 24px;
+  --r4: 32px;
 
-.flow { display:flex; flex-direction:column; gap:10px; }
-.frow { display:flex; align-items:flex-start; gap:16px; background:#fff; border:1.5px solid rgba(168,128,32,0.18); border-radius:12px; padding:15px 20px; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
-.fnum { font-size:17px; font-weight:900; color:#C4A44E; width:34px; height:34px; border-radius:8px; background:rgba(196,164,78,0.12); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.ftxt { font-size:17px; font-weight:600; color:#0d0d0d; line-height:1.5; padding-top:3px; }
-.fnote { font-size:13px; color:#888; margin-top:3px; font-style:italic; }
+  /* Typography scale */
+  --f-hero:  clamp(28px, 3.8vw, 46px);
+  --f-h2:    clamp(22px, 3vw, 38px);
+  --f-h3:    clamp(16px, 2vw, 22px);
+  --f-h4:    16px;
+  --f-body:  16px; /* 16px min for body */
+  --f-sm:    15px;
+  --f-xs:    13px;
+  --f-mono:  14px;
 
-.trow { display:flex; align-items:flex-start; gap:20px; background:rgba(255,255,255,0.07); border:1.5px solid rgba(196,164,78,0.22); border-radius:12px; padding:16px 22px; margin-bottom:10px; box-shadow:0 4px 16px rgba(0,0,0,0.12); }
-.tnum { font-size:30px; font-weight:900; color:#C4A44E; min-width:34px; line-height:1.1; flex-shrink:0; }
-.ttxt { font-size:19px; font-weight:700; color:#ffffff; line-height:1.5; }
-.tgold { color:#D4B46E; }
+  /* Spacing */
+  --sp-section: clamp(56px, 8vw, 96px);
+  --sp-wrap: clamp(16px, 5vw, 48px);
+}
 
-.gold-line { width:60px; height:2px; background:#C4A44E; margin:0 auto; }
-.eyebrow   { font-size:22px; font-weight:900; letter-spacing:2px; text-transform:uppercase; color:#5a3a06; margin-bottom:18px; }
-.eyebrow-d { font-size:22px; font-weight:900; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.85); margin-bottom:20px; }
+/* ═══════════════════════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: var(--f-body);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--t1);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+img, video, iframe, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: inherit; }
+::selection { background: rgba(184,146,42,.18); }
 
-@keyframes fadeUp    { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-@keyframes fadeIn    { from{opacity:0} to{opacity:1} }
-@keyframes scaleIn   { from{opacity:0;transform:scale(0.88)} to{opacity:1;transform:scale(1)} }
-@keyframes slideR    { from{opacity:0;transform:translateX(-24px)} to{opacity:1;transform:translateX(0)} }
-@keyframes slideL    { from{opacity:0;transform:translateX(24px)} to{opacity:1;transform:translateX(0)} }
-@keyframes lineGrow  { from{transform:scaleX(0);transform-origin:left} to{transform:scaleX(1);transform-origin:left} }
-@keyframes glowBreath{ 0%,100%{box-shadow:0 0 10px 2px rgba(196,164,78,0.28),0 6px 24px rgba(27,58,92,0.25)} 50%{box-shadow:0 0 32px 10px rgba(196,164,78,0.62),0 8px 36px rgba(27,58,92,0.42)} }
-@keyframes pulseRing { 0%,100%{box-shadow:0 0 0 0 rgba(196,164,78,0.55)} 50%{box-shadow:0 0 0 14px rgba(196,164,78,0)} }
-@keyframes pulseOp   { 0%,100%{opacity:.35} 50%{opacity:1} }
-@keyframes charIn    { to{opacity:1;transform:translateY(0)} }
-.a1{animation:fadeUp .45s .1s ease both;opacity:0;animation-fill-mode:both;}
-.a2{animation:fadeUp .45s .25s ease both;opacity:0;animation-fill-mode:both;}
-.a3{animation:fadeUp .45s .4s ease both;opacity:0;animation-fill-mode:both;}
-.a4{animation:fadeUp .45s .55s ease both;opacity:0;animation-fill-mode:both;}
-.a5{animation:fadeUp .45s .7s ease both;opacity:0;animation-fill-mode:both;}
-.aL{animation:slideL .5s .2s ease both;opacity:0;animation-fill-mode:both;}
-.aR{animation:slideR .5s .1s ease both;opacity:0;animation-fill-mode:both;}
-.aS{animation:scaleIn .5s .1s ease both;opacity:0;animation-fill-mode:both;}
+/* ═══════════════════════════════════════════════════════════════
+   LAYOUT UTILITIES
+═══════════════════════════════════════════════════════════════ */
+.wrap    { width: min(1120px, 100%); margin: 0 auto; padding: 0 var(--sp-wrap); }
+.wrap-sm { width: min(760px, 100%);  margin: 0 auto; padding: 0 var(--sp-wrap); }
+.sec     { padding: var(--sp-section) 0; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TYPOGRAPHY SYSTEM
+═══════════════════════════════════════════════════════════════ */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #7A6018;
+  margin-bottom: 20px;
+}
+.label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #7A6018;
+  flex-shrink: 0;
+}
+
+h1 {
+  font-size: var(--f-hero);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.8px;
+  color: var(--t1);
+}
+h1 em { font-style: italic; color: var(--gold); font-weight: 800; }
+
+h2 {
+  font-size: var(--f-h2);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.3px;
+  color: var(--t1);
+}
+h2 em { font-style: italic; color: var(--gold); }
+
+h3 {
+  font-size: var(--f-h3);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--t1);
+}
+
+h4 {
+  font-size: var(--f-h4);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--t1);
+}
+
+.body-lg { font-size: 18px; line-height: 1.7; color: var(--t2); }
+.body    { font-size: var(--f-body); line-height: 1.65; color: var(--t2); }
+.body-sm { font-size: var(--f-sm); line-height: 1.6; color: var(--t3); }
+.body-xs { font-size: var(--f-xs); line-height: 1.55; color: var(--t4); }
+
+.mono { font-family: 'DM Mono', monospace; }
+
+.rule {
+  width: 48px;
+  height: 2px;
+  background: var(--gold);
+  margin: 28px 0;
+}
+.rule-c { margin-left: auto; margin-right: auto; }
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  padding: 14px 28px;
+  border-radius: var(--r1);
+  border: none;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn-dark  { background: var(--navy); color: var(--white); }
+.btn-dark:hover  { background: var(--navy2); box-shadow: var(--s2); }
+
+.btn-gold  { background: var(--gold); color: var(--white); }
+.btn-gold:hover  { background: var(--gold2); box-shadow: 0 8px 24px rgba(184,146,42,.35); }
+
+.btn-ghost { background: transparent; color: var(--t1); border: 1.5px solid var(--b1); }
+.btn-ghost:hover { background: var(--white); box-shadow: var(--s1); border-color: transparent; }
+
+.btn-lg { font-size: 16px; padding: 17px 36px; }
+.btn-full { width: 100%; }
+
+/* ═══════════════════════════════════════════════════════════════
+   URGENCY BAR
+═══════════════════════════════════════════════════════════════ */
+.ubar {
+  background: #070F1D;
+  border-bottom: 2px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.ubar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  padding: 10px var(--sp-wrap);
+  min-height: 46px;
+}
+.ubar-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(220,38,38,.22);
+  border: 1.5px solid rgba(220,38,38,.55);
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #FCA5A5;
+  letter-spacing: .5px;
+  animation: pulse 2s infinite;
+}
+.ubar-pill svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ubar-pill strong { color: #FFFFFF; font-size: 15px; }
+
+.ubar-cd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255,255,255,.6);
+  font-weight: 500;
+}
+.cd-group {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-family: 'DM Mono', monospace;
+}
+.cd-num {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(184,146,42,.4);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--gold2);
+  min-width: 38px;
+  text-align: center;
+  line-height: 1.3;
+}
+.cd-sep { color: rgba(184,146,42,.4); font-size: 14px; }
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,.25); }
+  50%       { box-shadow: 0 0 0 5px rgba(220,38,38,0); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════════════ */
+nav {
+  position: sticky;
+  top: 46px;
+  z-index: 99;
+  background: rgba(248,246,241,.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--b1);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--sp-wrap);
+  transition: box-shadow .3s;
+}
+nav.scrolled { box-shadow: var(--s1); }
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: var(--navy);
+}
+.logo em { color: var(--gold); font-style: normal; }
+
+.nav-btn {
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--navy);
+  color: var(--white);
+  padding: 10px 22px;
+  border-radius: var(--r1);
+  transition: background .2s, transform .2s;
+}
+.nav-btn:hover { background: var(--gold); transform: translateY(-1px); }
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════════════ */
+.hero {
+  background: var(--white);
+  padding: clamp(56px, 9vw, 112px) 0 clamp(48px, 7vw, 80px);
+  border-bottom: 1px solid var(--b1);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: start;
+}
+@media (min-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1fr 400px;
+    gap: 72px;
+    align-items: center;
+  }
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.hero-tag-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+.hero h1 { margin-bottom: 22px; }
+
+.hero-sub {
+  font-size: clamp(16px, 1.8vw, 18px);
+  color: var(--t2);
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 520px;
+}
+.hero-sub strong { color: var(--t1); font-weight: 700; }
+
+.hero-proof {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--t2);
+  margin-bottom: 28px;
+  line-height: 1.45;
+}
+.hero-proof svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--gold); margin-top: 1px; }
+
+.hero-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+@media (min-width: 480px) {
+  .hero-btns { flex-direction: row; flex-wrap: wrap; }
+}
+
+.hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+.hero-fact {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t3);
+}
+.hero-fact::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* HERO CARD */
+.hc {
+  background: var(--navy);
+  border-radius: var(--r4);
+  overflow: hidden;
+  box-shadow: var(--s3);
+  border-top: 3px solid var(--gold);
+}
+.hc-top {
+  padding: 28px 28px 22px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.hc-badge {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+}
+.hc-old  { font-size: 14px; color: var(--d4); text-decoration: line-through; margin-bottom: 4px; }
+.hc-price {
+  font-size: clamp(40px, 9vw, 52px);
+  font-weight: 800;
+  color: var(--gold2);
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -2px;
+}
+.hc-save {
+  display: inline-block;
+  background: rgba(22,163,74,.15);
+  color: #86EFAC;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+.hc-dl { font-size: 12px; color: rgba(255,255,255,.65); }
+.hc-dl strong { color: rgba(255,255,255,.9); font-weight: 700; }
+
+/* countdown in card */
+.hc-cd { padding: 18px 28px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.hc-cd-lbl { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--d4); margin-bottom: 12px; }
+.hc-cd-row { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; gap: 2px; align-items: center; }
+.hc-cd-block { text-align: center; }
+.hc-cd-num {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(20px, 4.5vw, 26px);
+  font-weight: 500;
+  color: var(--gold2);
+  background: rgba(255,255,255,.06);
+  border-radius: 8px;
+  padding: 8px 4px;
+  margin-bottom: 4px;
+}
+.hc-cd-unit { font-size: 9px; color: rgba(255,255,255,.55); letter-spacing: 1px; text-transform: uppercase; }
+.hc-cd-sep { font-size: 18px; color: rgba(255,255,255,.2); text-align: center; padding-bottom: 20px; }
+
+/* actions in card */
+.hc-act { padding: 20px 28px 24px; }
+.hc-act .btn { width: 100%; margin-bottom: 8px; font-size: 15px; padding: 15px; }
+.hc-note { font-size: 13px; color: var(--d3); text-align: center; line-height: 1.5; margin-bottom: 14px; }
+.hc-refund {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(22,163,74,.1);
+  border: 1px solid rgba(22,163,74,.2);
+  border-radius: var(--r1);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.hc-refund svg { width: 16px; height: 16px; color: #86EFAC; flex-shrink: 0; margin-top: 1px; }
+.hc-refund p { font-size: 12px; color: #86EFAC; font-weight: 600; line-height: 1.5; }
+.hc-seats-txt { font-size: 13px; color: var(--d3); text-align: center; margin-bottom: 6px; }
+.hc-seats-txt strong { color: var(--d2); }
+.seat-bar { height: 4px; background: rgba(255,255,255,.1); border-radius: 10px; overflow: hidden; }
+.seat-fill { height: 100%; width: 30%; background: var(--gold); border-radius: 10px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FOR-WHO
+═══════════════════════════════════════════════════════════════ */
+.forwhom { background: var(--navy); padding: var(--sp-section) 0; }
+.forwhom .label { color: rgba(212,168,60,.85); }
+.forwhom .label::before { background: rgba(212,168,60,.7); }
+.forwhom h2 { color: var(--white); }
+.forwhom h2 em { color: var(--gold2); }
+
+.fw-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 44px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--r4);
+  overflow: hidden;
+}
+@media (min-width: 720px) {
+  .fw-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.fw-col { padding: clamp(24px, 4vw, 40px); }
+.fw-yes { background: rgba(184,146,42,.07); border-bottom: 1px solid rgba(255,255,255,.08); }
+@media (min-width: 720px) {
+  .fw-yes { border-bottom: none; border-right: 1px solid rgba(255,255,255,.08); }
+}
+.fw-no { background: rgba(255,255,255,.03); }
+
+.fw-col h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.fw-yes h3 { color: var(--gold2); }
+.fw-no  h3 { color: rgba(255,255,255,.6); }
+
+.fw-list { list-style: none; }
+.fw-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.fw-item:last-child { border-bottom: none; }
+.fw-yes .fw-item { color: var(--d2); }
+.fw-no  .fw-item { color: rgba(255,255,255,.62); }
+
+.fw-dot {
+  width: 20px; height: 20px; min-width: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+  margin-top: 2px; flex-shrink: 0;
+}
+.fw-yes .fw-dot { background: var(--gold); color: var(--white); }
+.fw-no  .fw-dot { background: rgba(255,255,255,.1); color: var(--d3); }
+
+.fw-cta {
+  margin-top: 44px;
+  padding: clamp(28px, 4vw, 44px);
+  border: 2px solid rgba(184,146,42,.3);
+  border-radius: var(--r4);
+  background: rgba(184,146,42,.07);
+  text-align: center;
+}
+.fw-cta p { font-size: clamp(16px, 2vw, 22px); font-weight: 700; color: var(--white); margin-bottom: 20px; line-height: 1.4; }
+.fw-cta p em { font-style: italic; color: var(--gold2); }
+
+/* ═══════════════════════════════════════════════════════════════
+   VSL
+═══════════════════════════════════════════════════════════════ */
+.vsl { background: var(--cream2); padding: var(--sp-section) 0; }
+
+.vsl-card {
+  background: var(--navy);
+  border-radius: var(--r4);
+  overflow: hidden;
+  box-shadow: var(--s3);
+}
+.vsl-head {
+  padding: clamp(28px, 4vw, 48px) clamp(24px, 4vw, 48px) 28px;
+}
+.vsl-head .label { color: rgba(212,168,60,.65); }
+.vsl-head .label::before { background: rgba(212,168,60,.45); }
+.vsl-head h2 { color: var(--white); font-size: clamp(20px, 2.8vw, 34px); margin-bottom: 20px; }
+.vsl-head h2 em { color: var(--gold2); }
+
+.vsl-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.vs-n { font-size: clamp(20px, 3.5vw, 28px); font-weight: 800; color: var(--gold2); line-height: 1; letter-spacing: -0.5px; }
+.vs-l { font-size: 12px; color: rgba(255,255,255,.65); margin-top: 5px; line-height: 1.35; font-weight: 500; }
+
+.vsl-thumb {
+  position: relative;
+  padding-top: 56.25%;
+  background: #060E1A;
+  cursor: pointer;
+}
+.vsl-thumb:hover .vsl-play { transform: translate(-50%,-50%) scale(1.06); }
+.vsl-thumb-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(12,31,63,.95), rgba(28,52,106,.75));
+  display: flex; align-items: center; justify-content: center;
+}
+.vsl-tag {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 4px;
+}
+.vsl-play {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  transition: transform .25s ease;
+}
+.vsl-play-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 14px rgba(184,146,42,.12), 0 0 0 28px rgba(184,146,42,.06);
+}
+.vsl-play-circle svg { width: 26px; height: 26px; fill: white; margin-left: 4px; }
+.vsl-play-lbl { text-align: center; margin-top: 12px; font-size: 12px; color: var(--d3); }
+.vsl-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   PAIN
+═══════════════════════════════════════════════════════════════ */
+.pain { background: var(--white); padding: var(--sp-section) 0; }
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .pain-grid { grid-template-columns: 1fr 1fr; gap: 72px; }
+}
+
+.pain-list { list-style: none; margin-top: 28px; }
+.pain-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--b2);
+}
+.pain-item:last-child { border-bottom: none; }
+.pain-num {
+  width: 30px; height: 30px; min-width: 30px;
+  border-radius: 50%;
+  background: var(--cream2);
+  border: 1px solid var(--b1);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500; color: var(--t4);
+  flex-shrink: 0; margin-top: 2px;
+}
+.pain-txt { font-size: 15px; color: var(--t2); line-height: 1.65; font-weight: 400; }
+
+.pain-card {
+  background: var(--navy);
+  border-radius: var(--r3);
+  padding: clamp(28px, 4vw, 44px);
+  box-shadow: var(--s3);
+}
+.pain-card-q {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.35;
+  margin-bottom: 16px;
+}
+.pain-card-q em { font-style: italic; color: var(--gold2); }
+.pain-card-p { font-size: 15px; color: rgba(255,255,255,.72); line-height: 1.7; }
+
+.pain-foot {
+  margin-top: 36px;
+  padding: clamp(20px, 3vw, 32px);
+  background: var(--cream2);
+  border-radius: var(--r2);
+  border: 1px solid var(--b1);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.pain-foot p {
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 700;
+  color: var(--t1);
+  line-height: 1.4;
+  max-width: 440px;
+}
+.pain-foot p em { font-style: italic; color: var(--gold); }
+
+/* ═══════════════════════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════════════════════ */
+.stats { background: var(--cream2); padding: var(--sp-section) 0; text-align: center; }
+
+.stats-sub {
+  font-size: 17px;
+  color: var(--t2);
+  max-width: 560px;
+  margin: 0 auto 52px;
+  line-height: 1.7;
+}
+.stats-sub strong { color: var(--t1); font-weight: 700; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.stat-card {
+  background: var(--white);
+  border-radius: var(--r3);
+  padding: clamp(28px, 4vw, 48px) clamp(20px, 3vw, 32px);
+  border: 1px solid var(--b1);
+  box-shadow: var(--s1);
+  transition: transform .3s ease, box-shadow .3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--gold);
+}
+.stat-card:hover { transform: translateY(-5px); box-shadow: var(--s2); }
+
+.stat-n {
+  font-size: clamp(44px, 6vw, 60px);
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 12px;
+  display: block;
+}
+.stat-d { font-size: 15px; color: var(--t3); line-height: 1.55; font-weight: 500; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════════════════════════════ */
+.testi { background: var(--white); padding: var(--sp-section) 0; }
+
+.testi-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-top: 48px;
+}
+@media (min-width: 640px) { .testi-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .testi-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.tc {
+  border: 1px solid var(--b1);
+  border-radius: var(--r3);
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: var(--s1);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.tc:hover { transform: translateY(-4px); box-shadow: var(--s2); }
+
+.tc-vid {
+  position: relative;
+  padding-top: 56.25%;
+  background: var(--navy);
+  cursor: pointer;
+  overflow: hidden;
+}
+.tc-vid:hover .tc-play { transform: translate(-50%,-50%) scale(1.08); }
+.tc-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(12,31,63,.9), rgba(44,74,124,.6));
+  display: flex; align-items: center; justify-content: center;
+}
+.tc-av {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: rgba(184,146,42,.15);
+  border: 2px solid rgba(184,146,42,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 800; color: var(--gold2);
+}
+.tc-play {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(184,146,42,.4);
+  transition: transform .25s ease;
+  z-index: 2;
+}
+.tc-play svg { width: 15px; height: 15px; fill: white; margin-left: 2px; }
+
+.tc-body { padding: clamp(16px, 2.5vw, 24px); }
+.tc-quote {
+  font-size: 15px;
+  color: var(--t2);
+  line-height: 1.65;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+.tc-oq { font-style: normal; color: var(--gold); font-size: 22px; line-height: 0.5; vertical-align: -6px; }
+.tc-name { font-size: 15px; font-weight: 700; color: var(--t1); }
+.tc-role { font-size: 13px; color: var(--t3); font-weight: 500; margin-top: 2px; }
+.tc-result {
+  margin-top: 12px;
+  display: inline-block;
+  background: var(--gold-bg);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 100px;
+  border: 1px solid rgba(184,146,42,.2);
+}
+
+.testi-cta { text-align: center; margin-top: 44px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   CAPABILITIES
+═══════════════════════════════════════════════════════════════ */
+.caps { background: var(--cream2); padding: var(--sp-section) 0; }
+
+.caps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 48px;
+}
+@media (min-width: 720px) { .caps-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.cap {
+  background: var(--white);
+  border-radius: var(--r3);
+  padding: clamp(24px, 3.5vw, 40px);
+  border: 1px solid var(--b1);
+  box-shadow: var(--s1);
+  transition: box-shadow .3s ease, transform .3s ease, border-color .3s ease;
+  position: relative; overflow: hidden;
+}
+.cap:hover { box-shadow: var(--s2); transform: translateY(-4px); border-color: rgba(184,146,42,.2); }
+
+.cap-wk {
+  display: inline-block;
+  background: var(--cream2);
+  border: 1px solid var(--b1);
+  border-radius: 6px;
+  font-size: 11px; font-weight: 700; color: var(--t4);
+  letter-spacing: .5px; padding: 3px 10px;
+  margin-bottom: 16px;
+}
+.cap-icon { width: 56px; height: 56px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; }
+.cap-icon svg { width: 100%; height: 100%; }
+.cap h3 { font-size: clamp(16px, 2vw, 20px); margin-bottom: 10px; }
+.cap p { font-size: 15px; color: var(--t3); line-height: 1.65; }
+.cap-list { list-style: none; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--b2); }
+.cap-list li {
+  font-size: 14px; color: var(--t3); padding: 7px 0;
+  border-bottom: 1px solid var(--b2);
+  display: flex; gap: 8px; align-items: flex-start; line-height: 1.45;
+}
+.cap-list li:last-child { border-bottom: none; }
+.cap-list li::before { content: '✓'; color: var(--gold); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SESSIONS
+═══════════════════════════════════════════════════════════════ */
+.sessions { background: var(--white); padding: var(--sp-section) 0; }
+
+.wk { margin-bottom: 32px; }
+.wk-head { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.wk-chip {
+  background: var(--gold);
+  color: var(--white);
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  padding: 5px 16px; border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+}
+.wk-line { flex: 1; height: 1px; background: var(--b1); }
+
+.sess {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 14px;
+  padding: 14px 10px;
+  border-radius: var(--r1);
+  transition: background .15s ease;
+  align-items: start;
+}
+.sess:hover { background: var(--gold-bg); }
+.sess-num {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--cream2);
+  border: 1px solid var(--b1);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; font-weight: 500; color: var(--t4);
+  flex-shrink: 0;
+}
+.sess-title { font-size: 15px; font-weight: 700; color: var(--t1); margin-bottom: 4px; line-height: 1.3; }
+.sess-desc  { font-size: 15px; color: var(--t3); line-height: 1.6; }
+
+.exam-box {
+  margin-top: 28px;
+  padding: clamp(18px, 3vw, 28px);
+  background: var(--gold-bg);
+  border: 1px solid rgba(184,146,42,.25);
+  border-radius: var(--r2);
+  display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+}
+.exam-pill {
+  background: var(--gold); color: var(--white);
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+}
+.exam-title { font-size: 16px; font-weight: 700; color: var(--t1); margin-bottom: 5px; }
+.exam-desc  { font-size: 15px; color: var(--t3); line-height: 1.55; }
+
+/* ═══════════════════════════════════════════════════════════════
+   PRICE ANCHOR
+═══════════════════════════════════════════════════════════════ */
+.anchor { background: var(--navy); padding: var(--sp-section) 0; }
+.anchor .label { color: rgba(255,255,255,.55); justify-content: center; }
+.anchor .label::before { background: rgba(255,255,255,.35); }
+.anchor h2 { color: var(--white); text-align: center; }
+.anchor h2 em { color: var(--gold2); }
+
+.anc-box {
+  max-width: 680px;
+  margin: 48px auto 0;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(212,168,60,.15);
+  border-radius: var(--r4);
+  overflow: hidden;
+}
+.anc-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px 20px;
+  align-items: center;
+  padding: 18px 28px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.anc-row:last-child { border-bottom: none; }
+.anc-lbl { font-size: 15px; color: var(--d2); line-height: 1.4; }
+.anc-lbl small { display: block; font-size: 12px; color: var(--d4); margin-top: 2px; }
+.anc-val {
+  font-size: clamp(18px, 3.5vw, 26px);
+  font-weight: 800;
+  color: var(--gold2);
+  text-align: right;
+  white-space: nowrap;
+  letter-spacing: -0.5px;
+}
+.anc-val-dim { color: var(--d3); font-size: clamp(16px, 3vw, 22px); font-weight: 700; }
+
+.anc-result {
+  background: rgba(212,168,60,.1);
+  border-top: 1px solid rgba(212,168,60,.2);
+  padding: 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+@media (min-width: 560px) {
+  .anc-result { flex-direction: row; align-items: center; justify-content: space-between; }
+}
+.anc-result-txt { font-size: 15px; color: var(--d2); line-height: 1.6; }
+.anc-result-txt strong { color: var(--white); }
+.anc-result-val {
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 800;
+  color: var(--gold2);
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: -1px;
+}
+.anc-note { text-align: center; margin-top: 20px; font-size: 14px; color: var(--d3); font-style: italic; }
+
+/* ═══════════════════════════════════════════════════════════════
+   RISK REVERSAL
+═══════════════════════════════════════════════════════════════ */
+.risk { background: var(--white); padding: var(--sp-section) 0; text-align: center; }
+.risk .label { justify-content: center; }
+
+.risk-card {
+  max-width: 680px;
+  margin: 48px auto 0;
+  background: #F0FDF4;
+  border: 1.5px solid #86EFAC;
+  border-radius: var(--r4);
+  padding: clamp(32px, 5vw, 56px);
+  text-align: center;
+}
+.risk-icon { font-size: 44px; margin-bottom: 16px; }
+.risk-card h3 { font-size: clamp(20px, 2.8vw, 28px); color: #15803D; margin-bottom: 14px; }
+.risk-card p { font-size: 16px; color: #15803D; opacity: .8; line-height: 1.7; max-width: 480px; margin: 0 auto 10px; }
+.risk-card p strong { opacity: 1; font-weight: 700; }
+.risk-fine { font-size: 14px; color: #15803D; opacity: .6; border-top: 1px solid #86EFAC; padding-top: 14px; margin-top: 8px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   INSTRUCTOR
+═══════════════════════════════════════════════════════════════ */
+.instr { background: var(--cream2); padding: var(--sp-section) 0; }
+.instr > .wrap > .label { justify-content: center; }
+
+.instr-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-top: 48px;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .instr-grid { grid-template-columns: 320px 1fr; gap: 72px; }
+}
+.instr-photo {
+  aspect-ratio: 3/4;
+  background: var(--cream);
+  border-radius: var(--r4);
+  border: 1px solid var(--b1);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 8px;
+  box-shadow: var(--s1); overflow: hidden;
+  max-height: 320px;
+}
+@media (min-width: 900px) { .instr-photo { max-height: none; } }
+.instr-init { font-size: 72px; font-weight: 800; color: rgba(184,146,42,.15); line-height: 1; }
+.instr-photo-note { font-size: 12px; color: var(--t4); letter-spacing: 1px; }
+
+.instr-name { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -1px; color: var(--t1); margin-bottom: 4px; line-height: 1; }
+.instr-role { font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; }
+.instr-bio { font-size: 16px; color: var(--t2); line-height: 1.7; margin-bottom: 14px; }
+.instr-bio strong { color: var(--t1); font-weight: 700; }
+
+.creds { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 28px; }
+.cred {
+  background: var(--white);
+  border: 1px solid var(--b1);
+  border-radius: var(--r2);
+  padding: 16px 18px;
+  border-top: 2px solid var(--gold);
+}
+.cred-val { font-size: 26px; font-weight: 800; color: var(--t1); line-height: 1; margin-bottom: 4px; letter-spacing: -0.5px; }
+.cred-lbl { font-size: 13px; color: var(--t3); line-height: 1.4; font-weight: 500; }
+
+/* ═══════════════════════════════════════════════════════════════
+   ACTIVITIES
+═══════════════════════════════════════════════════════════════ */
+.act { background: var(--white); padding: var(--sp-section) 0; }
+
+.act-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 48px;
+}
+@media (min-width: 640px) { .act-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .act-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.act-card {
+  background: var(--cream2);
+  border-radius: var(--r3);
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid var(--b1);
+  transition: box-shadow .3s ease, transform .3s ease, background .3s ease, border-color .3s ease;
+}
+.act-card:hover { box-shadow: var(--s2); transform: translateY(-4px); background: var(--white); border-color: rgba(184,146,42,.2); }
+.act-icon { width: 44px; height: 44px; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; }
+.act-icon svg { width: 100%; height: 100%; }
+.act-card h4 { font-size: 16px; margin-bottom: 9px; }
+.act-card p  { font-size: 15px; color: var(--t3); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════════════════════
+   PRICING
+═══════════════════════════════════════════════════════════════ */
+.pricing { background: var(--cream2); padding: var(--sp-section) 0; text-align: center; }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  max-width: 760px;
+  margin: 48px auto 0;
+}
+@media (min-width: 640px) { .pricing-grid { grid-template-columns: 1fr 1fr; } }
+
+.pc {
+  background: var(--white);
+  border-radius: var(--r4);
+  padding: clamp(24px, 4vw, 40px);
+  box-shadow: var(--s1);
+  border: 1px solid var(--b1);
+  text-align: left;
+}
+.pc.feat {
+  background: var(--navy);
+  border-color: transparent;
+  box-shadow: var(--s3);
+  position: relative;
+}
+.pc-tag {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: var(--white);
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 18px; border-radius: 100px; white-space: nowrap;
+}
+.pc-type { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; color: var(--t4); margin-bottom: 14px; }
+.feat .pc-type { color: var(--d4); }
+.pc-price {
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 800;
+  color: var(--t1);
+  line-height: 1;
+  margin-bottom: 4px;
+  letter-spacing: -2px;
+}
+.feat .pc-price { color: var(--gold2); }
+.pc-unit { font-size: 14px; color: var(--t4); margin-bottom: 18px; }
+.feat .pc-unit { color: var(--d4); }
+.pc-dl {
+  background: var(--gold-bg);
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 13px; color: var(--gold); font-weight: 600;
+  margin-bottom: 18px;
+  border: 1px solid rgba(184,146,42,.2);
+}
+.feat .pc-dl { background: rgba(184,146,42,.1); color: var(--gold2); border-color: rgba(184,146,42,.15); }
+
+.pc-feats { list-style: none; }
+.pc-feats li {
+  font-size: 15px; color: var(--t2);
+  padding: 9px 0; border-top: 1px solid var(--b2);
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.feat .pc-feats li { color: var(--d2); border-top-color: rgba(255,255,255,.08); }
+.pc-feats li::before { content: '✓'; color: var(--gold); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+.feat .pc-feats li::before { color: var(--gold2); }
+
+.pricing-cta { max-width: 760px; margin: 28px auto 0; }
+.pricing-cta .btn { width: 100%; max-width: 400px; }
+.p-note { margin-top: 12px; font-size: 13px; color: var(--t3); }
+.p-note strong { color: var(--gold); }
+
+/* ═══════════════════════════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════════════════════════ */
+.faq { background: var(--white); padding: var(--sp-section) 0; }
+.faq-list { margin-top: 48px; }
+.faq-item {
+  background: var(--cream2);
+  border-radius: var(--r2);
+  margin-bottom: 10px;
+  border: 1px solid var(--b1);
+  overflow: hidden;
+  transition: box-shadow .2s ease;
+}
+.faq-item.open { box-shadow: var(--s1); }
+.faq-q {
+  width: 100%; background: none; border: none; text-align: left;
+  padding: 18px 22px;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 15px; font-weight: 700; color: var(--t1);
+  cursor: pointer; line-height: 1.4;
+  transition: color .2s ease;
+}
+.faq-q:hover { color: var(--gold); }
+.faq-ico {
+  width: 28px; height: 28px; min-width: 28px;
+  border-radius: 50%;
+  background: var(--white); border: 1px solid var(--b1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: var(--t4);
+  transition: all .3s ease; font-weight: 300; flex-shrink: 0;
+}
+.faq-item.open .faq-ico { background: var(--gold); border-color: var(--gold); color: var(--white); transform: rotate(45deg); }
+.faq-body { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+.faq-inner { padding: 0 22px 20px; font-size: 16px; color: var(--t2); line-height: 1.75; max-width: 640px; }
+.faq-inner strong { color: var(--t1); font-weight: 700; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FINAL CTA
+═══════════════════════════════════════════════════════════════ */
+.final { background: #070F1D; padding: clamp(72px, 10vw, 120px) 0; text-align: center; }
+.final .label { justify-content: center; color: rgba(212,168,60,.5); }
+.final .label::before { background: rgba(212,168,60,.35); }
+.final h2 { color: var(--white); }
+.final h2 em { color: var(--gold2); }
+.final-sub {
+  font-size: clamp(15px, 2vw, 17px);
+  color: var(--d3);
+  max-width: 480px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+.final-shield {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(22,163,74,.1);
+  border: 1px solid rgba(22,163,74,.2);
+  border-radius: 100px; padding: 7px 18px;
+  font-size: 13px; font-weight: 600; color: #86EFAC;
+  margin-bottom: 32px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════════ */
+footer {
+  background: #040A14;
+  padding: 24px var(--sp-wrap);
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,.35);
+}
+footer em { color: rgba(184,146,42,.5); font-style: normal; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE STICKY
+═══════════════════════════════════════════════════════════════ */
+.mob {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 98;
+  background: rgba(248,246,241,.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--b1);
+  padding: 12px 16px;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 -4px 20px rgba(12,31,63,.07);
+}
+.mob a {
+  display: block; text-align: center;
+  background: var(--navy); color: var(--white);
+  font-weight: 700; font-size: 15px; padding: 14px;
+  border-radius: var(--r1); text-decoration: none;
+}
+.mob-sub {
+  text-align: center; font-size: 12px; color: var(--t3); line-height: 1.4; font-weight: 500;
+}
+@media (max-width: 960px) { .mob { display: flex; } }
+
+/* ═══════════════════════════════════════════════════════════════
+   REVEAL ANIMATIONS
+═══════════════════════════════════════════════════════════════ */
+.fade { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.fade.on { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: .08s; }
+.d2 { transition-delay: .16s; }
+.d3 { transition-delay: .24s; }
+
+
+/* Mobile typography fine-tuning */
+@media (max-width: 600px) {
+  h1 { letter-spacing: -0.5px; line-height: 1.08; }
+  h2 { letter-spacing: -0.3px; line-height: 1.15; }
+  .hero h1 { font-size: clamp(28px, 8vw, 38px); }
+  .ubar-inner { gap: 8px 12px; }
+  .ubar-cd { font-size: 11px; }
+  .cd-num { font-size: 16px; min-width: 34px; padding: 3px 7px; }
+}
+
+/* Label contrast fix for light backgrounds */
+.hero .label,
+.testi .label,
+.caps .label,
+.sessions .label,
+.risk .label,
+.instr .label,
+.act .label,
+.faq .label {
+  color: #7A6018;
+}
+.hero .label::before,
+.testi .label::before,
+.caps .label::before,
+.sessions .label::before,
+.risk .label::before,
+.instr .label::before,
+.act .label::before,
+.faq .label::before {
+  background: #7A6018;
+}
+/* Pain section - white bg */
+.pain .label { color: #7A6018; }
+.pain .label::before { background: #7A6018; }
+/* Stats section - cream2 bg */
+.stats .label { color: #7A6018; }
+.stats .label::before { background: #7A6018; }
+/* Pricing section - cream2 bg */
+.pricing .label { color: #7A6018; }
+.pricing .label::before { background: #7A6018; }
+/* ═══════════════════════════════════════════════════════════════
+   FOCUS
+═══════════════════════════════════════════════════════════════ */
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+
 </style>
 </head>
 <body>
-<canvas id="pcv" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
 
-<!-- ═══ SLIDE 1 · COVER ═══ -->
-<div class="slide active bg-cover" id="s1">
-  <div class="bar-top"></div><div class="bar-left"></div><div class="bar-right"></div>
-  <div class="content" style="text-align:center;max-width:860px;padding:0 48px;">
-    <div class="gold-line a1" style="margin-bottom:22px;"></div>
-    <div class="a2" style="font-size:12px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,0.7);text-transform:uppercase;margin-bottom:16px;">REX Certified · Cố vấn BDS Được Chứng Nhận · 10 Buổi</div>
-    <div class="a3" style="font-size:54px;font-weight:900;color:#ffffff;line-height:1.1;text-transform:uppercase;letter-spacing:-1.5px;">
-      Kỹ Năng Tư Vấn<br><span style="color:#D4B46E;">Đỉnh Cao</span><br>Thực Chiến BDS
+<!-- URGENCY BAR -->
+<div class="ubar">
+  <div class="ubar-inner">
+    <div class="ubar-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      CHỈ CÒN <strong>35</strong> SUẤT EARLY BIRD
     </div>
-    <div class="a4" style="width:80px;height:2px;background:linear-gradient(90deg,transparent,#C4A44E,transparent);margin:22px auto;"></div>
-    <div class="a5" style="font-size:20px;color:rgba(255,255,255,0.75);font-style:italic;font-weight:500;line-height:1.65;">Cùng framework TTA. Toàn bộ tình huống, roleplay và case study<br>là BDS thực tế từ dự án Vinhomes và Bighomes.</div>
-    <div class="gold-line a5" style="margin-top:22px;"></div>
-  </div>
-  <div class="footer-dark">REX CERTIFIED | COACH DUY NGUYEN</div>
-</div>
-
-<!-- ═══ SLIDE 2 · DÀNH CHO AI ═══ -->
-<div class="slide bg-agenda" id="s2">
-  <div class="bar-top"></div><div class="bar-left"></div><div class="bar-right"></div>
-  <div class="content" style="position:relative;z-index:3;">
-    <div class="eyebrow-d a1">Chương trình này dành cho ai</div>
-    <div class="g3 a2">
-      <div class="card-dark">
-        <div class="cl-d">Đối tượng 01</div>
-        <div class="ct-d">Sale BDS Muốn Nâng Tầm</div>
-        <div class="cb-d">Đã có 6 tháng trở lên kinh nghiệm. Đang làm được nhưng chưa có hệ thống. Muốn tăng tỷ lệ chốt và thu nhập ổn định hơn.</div>
-        <div class="cnum-d">01</div>
-      </div>
-      <div class="card-dark">
-        <div class="cl-d">Đối tượng 02</div>
-        <div class="ct-d">Cựu Học Viên TTA</div>
-        <div class="cb-d">Đã nắm framework TTA. Muốn ứng dụng chuyên sâu vào BDS thay vì dùng ngữ cảnh chung chung như trước.</div>
-        <div class="cnum-d">02</div>
-      </div>
-      <div class="card-dark">
-        <div class="cl-d">Đối tượng 03</div>
-        <div class="ct-d">Muốn Thoát Tư Duy Bán Hàng</div>
-        <div class="cb-d">Không muốn bị gọi là sales nữa. Muốn xây vị thế cố vấn được khách hàng tìm đến, không phải đi tìm khách.</div>
-        <div class="cnum-d">03</div>
-      </div>
-    </div>
-    <div class="a3" style="margin-top:22px;background:rgba(255,255,255,0.06);border:1px solid rgba(196,164,78,0.2);border-radius:10px;padding:14px 22px;font-size:16px;color:rgba(255,255,255,0.75);font-style:italic;line-height:1.6;">
-      Điều kiện đầu vào: Chứng chỉ REX Foundation hoặc 6 tháng kinh nghiệm BDS và bài kiểm tra đầu vào.
-    </div>
-  </div>
-  <div class="footer-dark">REX CERTIFIED | COACH DUY NGUYEN</div>
-</div>
-
-<!-- ═══ SLIDE 3 · CAM KẾT 3 KẾT QUẢ ═══ -->
-<div class="slide bg-content" id="s3">
-  <div class="bar-top"></div><div class="bar-left"></div><div class="bar-right"></div>
-  <div class="content" style="position:relative;z-index:3;">
-    <div class="eyebrow a1">Cam kết sau 10 buổi</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;" class="a2">
-
-      <div style="background:#1B3A5C;border-radius:16px;padding:32px 28px;position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(27,58,92,0.38);">
-        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(196,164,78,0.13) 1.3px,transparent 1.3px);background-size:22px 22px;z-index:0;"></div>
-        <div style="position:relative;z-index:2;">
-          <div style="font-size:13px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.6);text-transform:uppercase;margin-bottom:12px;">Kết quả 01</div>
-          <div style="font-size:56px;font-weight:900;color:#D4B46E;line-height:1;margin-bottom:12px;">15%+</div>
-          <div style="font-size:18px;font-weight:900;color:#ffffff;margin-bottom:10px;line-height:1.3;">Tỷ lệ chốt tăng lên mức tối thiểu</div>
-          <div style="height:2px;background:linear-gradient(90deg,#C4A44E,rgba(196,164,78,0.2));margin-bottom:10px;animation:lineGrow .6s .5s ease forwards;transform:scaleX(0);transform-origin:left;"></div>
-          <div style="font-size:14px;color:rgba(255,255,255,0.7);line-height:1.55;">Từ mức bình quân 5-8% của phần lớn sale BDS hiện tại lên 15% trở lên sau khóa.</div>
-        </div>
-      </div>
-
-      <div style="background:#fff;border:1.5px solid rgba(168,128,32,0.2);border-top:3px solid #9a7218;border-radius:16px;padding:32px 28px;position:relative;overflow:hidden;box-shadow:0 4px 22px rgba(0,0,0,0.09);">
-        <div style="font-size:13px;font-weight:700;letter-spacing:2px;color:#8a6010;text-transform:uppercase;margin-bottom:12px;">Kết quả 02</div>
-        <div style="font-size:22px;font-weight:900;color:#0d0d0d;line-height:1.25;margin-bottom:10px;">Quy trình tư vấn hoàn chỉnh</div>
-        <div style="font-size:15px;color:#444;line-height:1.6;">Tự vận hành toàn bộ 10 bước tư vấn BDS theo chuẩn REX mà không cần kịch bản, không cần nhắc nhở. Khách cảm nhận được sự khác biệt ngay buổi đầu tiên.</div>
-        <div style="position:absolute;bottom:-4px;right:12px;font-size:80px;font-weight:900;color:rgba(168,128,32,0.06);line-height:1;pointer-events:none;">02</div>
-      </div>
-
-      <div style="background:#fff;border:1.5px solid rgba(168,128,32,0.2);border-top:3px solid #9a7218;border-radius:16px;padding:32px 28px;position:relative;overflow:hidden;box-shadow:0 4px 22px rgba(0,0,0,0.09);">
-        <div style="font-size:13px;font-weight:700;letter-spacing:2px;color:#8a6010;text-transform:uppercase;margin-bottom:12px;">Kết quả 03</div>
-        <div style="font-size:22px;font-weight:900;color:#0d0d0d;line-height:1.25;margin-bottom:10px;">Chứng chỉ REX Certified chính thức</div>
-        <div style="font-size:15px;color:#444;line-height:1.6;">Chứng nhận được ngành công nhận. Tiền đề để lên REX Senior và gia nhập cộng đồng cố vấn BDS chuyên nghiệp nhất Việt Nam.</div>
-        <div style="position:absolute;bottom:-4px;right:12px;font-size:80px;font-weight:900;color:rgba(168,128,32,0.06);line-height:1;pointer-events:none;">03</div>
-      </div>
-
-    </div>
-  </div>
-  <div class="footer-light">REX CERTIFIED | COACH DUY NGUYEN</div>
-</div>
-
-<!-- ═══ SLIDE 4 · KHÁC BIỆT VỚI TTA ═══ -->
-<div class="slide bg-section" id="s4">
-  <div class="bar-top"></div><div class="bar-left"></div><div class="bar-right"></div>
-  <div class="content" style="position:relative;z-index:3;">
-    <div class="a1" style="font-size:12px;font-weight:700;letter-spacing:3px;color:#8a6010;text-transform:uppercase;margin-bottom:14px;">REX Certified khác TTA ở chỗ nào</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-      <div class="a2">
-        <div style="font-size:14px;font-weight:900;letter-spacing:2px;color:#8a6010;text-transform:uppercase;margin-bottom:12px;">TTA · Nền tảng</div>
-        <div style="background:#f0e4c8;border:1.5px solid rgba(168,128,32,0.3);border-radius:12px;overflow:hidden;">
-          <div style="padding:18px 20px;border-bottom:1px solid rgba(168,128,32,0.15);font-size:15px;color:#3a2408;font-weight:600;line-height:1.5;">Framework tư vấn 3 Điểm Chạm toàn diện</div>
-          <div style="padding:18px 20px;border-bottom:1px solid rgba(168,128,32,0.15);font-size:15px;color:#3a2408;font-weight:600;line-height:1.5;">Ngữ cảnh đa ngành: BDS, bảo hiểm, B2B, B2C</div>
-          <div style="padding:18px 20px;border-bottom:1px solid rgba(168,128,32,0.15);font-size:15px;color:#3a2408;font-weight:600;line-height:1.5;">Roleplay tình huống tổng quát</div>
-          <div style="padding:18px 20px;font-size:15px;color:#3a2408;font-weight:600;line-height:1.5;">Không có kiến thức BDS chuyên sâu</div>
-        </div>
-      </div>
-
-      <div class="a3">
-        <div style="font-size:14px;font-weight:900;letter-spacing:2px;color:#1B3A5C;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
-          <span style="background:#C4A44E;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;">REX CERTIFIED</span>
-          Nâng cấp
-        </div>
-        <div style="background:#1B3A5C;border-radius:12px;overflow:hidden;box-shadow:0 8px 28px rgba(27,58,92,0.25);">
-          <div style="padding:18px 20px;border-bottom:1px solid rgba(196,164,78,0.15);font-size:15px;color:#ffffff;font-weight:600;line-height:1.5;">Cùng framework. Mọi kỹ năng đều sâu hơn</div>
-          <div style="padding:18px 20px;border-bottom:1px solid rgba(196,164,78,0.15);font-size:15px;color:#ffffff;font-weight:600;line-height:1.5;">100% tình huống và roleplay là BDS thực tế</div>
-          <div style="padding:18px 20px;border-bottom:1px solid rgba(196,164,78,0.15);font-size:15px;color:#C4A44E;font-weight:700;line-height:1.5;">Case study từ dự án Vinhomes và Bighomes</div>
-          <div style="padding:18px 20px;font-size:15px;color:#C4A44E;font-weight:700;line-height:1.5;">E-learning lo kiến thức. Zoom lo kỹ năng.</div>
-        </div>
-      </div>
-    </div>
-    <div class="a4" style="margin-top:16px;background:#1B3A5C;border-radius:10px;padding:14px 22px;font-size:15px;color:rgba(255,255,255,0.85);font-style:italic;line-height:1.6;text-align:center;">
-      Cựu học viên TTA sẽ thấy ngay: REX Certified không lặp lại TTA. Đây là lần đầu tiên họ thực hành đúng nghề.
-    </div>
-  </div>
-  <div class="footer-parchment">REX CERTIFIED | COACH DUY NGUYEN</div>
-</div>
-
-<!-- ═══ SLIDE 5 · CẤU TRÚC 4 TUẦN - SECTION OPENER ═══ -->
-<div class="slide bg-section" id="s5">
-  <div class="bar-top"></div><div class="bar-left"></div><div class="bar-right"></div>
-  <div class="content" style="position:relative;z-index:3;">
-    <div class="a1" style="font-size:12px;font-weight:700;letter-spacing:3px;color:#8a6010;text-transform:uppercase;margin-bottom:16px;">Lịch trình chương trình</div>
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:32px;">
-      <div class="a2" style="font-size:68px;font-weight:900;color:#0d0d0d;line-height:1.05;text-transform:uppercase;letter-spacing:-2px;">Cấu Trúc<br><span style="color:#8a6010;">4 Tuần</span><br>10 Buổi</div>
-      <div class="a2" style="font-size:260px;font-weight:900;line-height:0.85;color:rgba(168,128,32,0.18);pointer-events:none;letter-spacing:-12px;flex-shrink:0;margin-top:-10px;">10</div>
-    </div>
-    <div class="a3" style="width:100%;height:2px;background:linear-gradient(90deg,#9a7218,rgba(168,128,32,0.08));margin:20px 0 18px;"></div>
-    <div class="a4" style="font-size:20px;font-style:italic;font-weight:500;color:#3a3a3a;line-height:1.55;">Mỗi buổi 90 phút. Zoom tối. Học viên đã xem e-learning kiến thức trước. Toàn bộ thời gian trên buổi Zoom dành cho kỹ năng.</div>
-  </div>
-  <div class="footer-parchment">REX CERTIFIED | COACH DUY NGUYEN</div>
-</div>
-
-<!-- ═══ SLIDE 6 · FLOW 4 TUẦN ═══ -->
-<div class="slide bg-content" id="s6">
-  <div class="bar-top"></div><div class="bar-left"></div><div class="bar-right"></div>
-  <div class="content" style="position:relative;z-index:3;">
-    <div class="eyebrow a1">Lộ trình 4 tuần</div>
-    <div style="display:grid;grid-template-columns:1fr 28px 1fr 28px 1fr 28px 1fr;align-items:stretch;gap:0;" class="a2">
-
-      <div style="background:#f5f2e8;border:1.5px solid rgba(168,128,32,0.3);border-radius:14px;padding:24px 18px;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.07);">
-        <div style="font-size:28px;font-weight:900;color:rgba(168,128,32,0.35);margin-bottom:8px;line-height:1;">01</div>
-        <div style="font-size:11px;font-weight:900;color:#8a6010;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Tuần 1</div>
-        <div style="font-size:16px;font-weight:900;color:#0d0d0d;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;line-height:1.25;">Nền tảng Cố vấn BDS</div>
-        <div style="font-size:13px;color:#6a5a30;line-height:1.5;">Buổi 1. Vị thế cố vấn tin cậy. Buổi 2. Tâm lý khách theo phân khúc.</div>
-        <div style="margin-top:10px;font-size:11px;font-weight:700;color:#C4A44E;text-transform:uppercase;letter-spacing:1px;">2 buổi</div>
-      </div>
-
-      <div style="display:flex;align-items:center;justify-content:center;"><span style="font-size:18px;color:rgba(168,128,32,0.35);font-weight:900;">→</span></div>
-
-      <div style="background:#1B3A5C;border:2px solid #C4A44E;border-radius:14px;padding:24px 18px;text-align:center;position:relative;overflow:hidden;box-shadow:0 10px 36px rgba(27,58,92,0.32);animation:glowBreath 3s 1.2s ease-in-out infinite;">
-        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(196,164,78,0.15) 1.2px,transparent 1.2px);background-size:16px 16px;z-index:0;"></div>
-        <div style="position:relative;z-index:1;">
-          <div style="font-size:28px;font-weight:900;color:#D4B46E;margin-bottom:8px;line-height:1;">02</div>
-          <div style="font-size:11px;font-weight:900;color:#C4A44E;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;animation:pulseOp 2.5s ease-in-out infinite;">Tuần 2</div>
-          <div style="font-size:16px;font-weight:900;color:#ffffff;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;line-height:1.25;">Chạm Động Lực</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.5;">Buổi 3. Thiết lập vị thế. Buổi 4. Thực chiến Chạm Động Lực BDS.</div>
-          <div style="margin-top:10px;font-size:11px;font-weight:700;color:#C4A44E;text-transform:uppercase;letter-spacing:1px;">2 buổi</div>
-        </div>
-        <div style="position:absolute;inset:-3px;border-radius:16px;border:2px solid rgba(196,164,78,0.22);pointer-events:none;animation:pulseRing 2.5s ease-in-out infinite;"></div>
-      </div>
-
-      <div style="display:flex;align-items:center;justify-content:center;"><span style="font-size:18px;color:rgba(168,128,32,0.35);font-weight:900;">→</span></div>
-
-      <div style="background:#1B3A5C;border:2px solid #C4A44E;border-radius:14px;padding:24px 18px;text-align:center;position:relative;overflow:hidden;box-shadow:0 10px 36px rgba(27,58,92,0.32);animation:glowBreath 3s 1.8s ease-in-out infinite;">
-        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(196,164,78,0.15) 1.2px,transparent 1.2px);background-size:16px 16px;z-index:0;"></div>
-        <div style="position:relative;z-index:1;">
-          <div style="font-size:28px;font-weight:900;color:#D4B46E;margin-bottom:8px;line-height:1;">03</div>
-          <div style="font-size:11px;font-weight:900;color:#C4A44E;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;animation:pulseOp 2.5s .5s ease-in-out infinite;">Tuần 3</div>
-          <div style="font-size:16px;font-weight:900;color:#ffffff;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;line-height:1.25;">Chạm Điểm Nghẽn</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.5;">Buổi 5. Chạm Điểm nghẽn BDS. Buổi 6. Thực chiến Điểm nghẽn.</div>
-          <div style="margin-top:10px;font-size:11px;font-weight:700;color:#C4A44E;text-transform:uppercase;letter-spacing:1px;">2 buổi</div>
-        </div>
-        <div style="position:absolute;inset:-3px;border-radius:16px;border:2px solid rgba(196,164,78,0.22);pointer-events:none;animation:pulseRing 2.5s .5s ease-in-out infinite;"></div>
-      </div>
-
-      <div style="display:flex;align-items:center;justify-content:center;"><span style="font-size:18px;color:rgba(168,128,32,0.35);font-weight:900;">→</span></div>
-
-      <div style="background:#f5f2e8;border:1.5px solid rgba(168,128,32,0.3);border-radius:14px;padding:24px 18px;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.07);">
-        <div style="font-size:28px;font-weight:900;color:rgba(168,128,32,0.35);margin-bottom:8px;line-height:1;">04</div>
-        <div style="font-size:11px;font-weight:900;color:#8a6010;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Tuần 4</div>
-        <div style="font-size:16px;font-weight:900;color:#0d0d0d;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;line-height:1.25;">Con Đường và Tốt Nghiệp</div>
-        <div style="font-size:13px;color:#6a5a30;line-height:1.5;">Buổi 7-10. Dẫn dắt quyết định. Tài chính. Chốt. Thi tốt nghiệp.</div>
-        <div style="margin-top:10px;font-size:11px;font-weight:700;color:#C4A44E;text-transform:uppercase;letter-spacing:1px;">4 buổi</div>
-      </div>
-
-    </div>
-    <div class="a3" style="margin-top:16px;text-align:center;font-size:15px;color:#666;font-style:italic;">E-learning tự học kiến thức BDS trước mỗi tuần. 10 buổi Zoom tập trung 100% vào kỹ năng tư vấn thực chiến.</div>
-  </div>
-  <div class="footer-light">REX CERTIFIED | COACH DUY NGUYEN</div>
-</div>
-
-<!-- ═══ SLIDE 7 · TUẦN 1 + 2 ═══ -->
-<div class="slide bg-practice" id="s7">
-  <div class="border-practice"></div>
-  <div class="content" style="position:relative;z-index:3;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;" class="a1">
-      <div style="background:#1B3A5C;color:#C4A44E;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:7px 18px;border-radius:6px;">Tuần 1</div>
-      <div style="height:2px;flex:1;background:linear-gradient(90deg,rgba(168,128,32,0.4),transparent);"></div>
-      <div style="background:#1B3A5C;color:#C4A44E;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:7px 18px;border-radius:6px;">Tuần 2</div>
-    </div>
-    <div class="g2 a2">
-      <div>
-        <div style="font-size:11px;font-weight:900;color:#8a6010;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Nền tảng Cố vấn BDS</div>
-        <div class="card" style="margin-bottom:12px;">
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="min-width:38px;height:38px;background:#1B3A5C;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#C4A44E;">01</div>
-            <div>
-              <div class="ct" style="font-size:16px;">Từ Sales sang Cố vấn BDS tin cậy</div>
-              <div class="cb" style="font-size:14px;">Vị thế cố vấn là gì trong mắt khách BDS. Thiết lập uy tín ngay từ lần tiếp cận đầu. Cam kết hành vi từ buổi này.</div>
-              <div class="ctime">120 phút · Lý thuyết + Thực hành</div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="min-width:38px;height:38px;background:#1B3A5C;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#C4A44E;">02</div>
-            <div>
-              <div class="ct" style="font-size:16px;">Tâm lý khách BDS theo phân khúc</div>
-              <div class="cb" style="font-size:14px;">3 nhóm khách: mua ở thực, đầu tư, HNWI. Nhận diện từ cuộc gọi đầu. Điều chỉnh cách tư vấn tương ứng.</div>
-              <div class="ctime">120 phút · Phân tích + Roleplay</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div style="font-size:11px;font-weight:900;color:#8a6010;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Chạm Động Lực</div>
-        <div class="card" style="margin-bottom:12px;">
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="min-width:38px;height:38px;background:#1B3A5C;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#C4A44E;">03</div>
-            <div>
-              <div class="ct" style="font-size:16px;">Thiết lập Vị thế và Chạm Động lực BDS</div>
-              <div class="cb" style="font-size:14px;">Động lực thật của người mua BDS. Cách khai thác mà không bị coi là thăm dò. Ngữ cảnh BDS cụ thể.</div>
-              <div class="ctime">120 phút · Framework + Thực hành</div>
-            </div>
-          </div>
-        </div>
-        <div class="card" style="border-top-color:#C4A44E;">
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="min-width:38px;height:38px;background:#C4A44E;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#fff;">04</div>
-            <div>
-              <div class="ct" style="font-size:16px;color:#8a6010;">Thực chiến Chạm Động lực BDS</div>
-              <div class="cb" style="font-size:14px;">Roleplay 100%. Không lý thuyết. Tình huống thực từ Vinhomes và Bighomes. Anh cho điểm trực tiếp.</div>
-              <div class="ctime" style="color:#9a7218;">120 phút · Roleplay 100%</div>
-            </div>
-          </div>
-        </div>
+    <div class="ubar-cd">
+      <span>Hết sau</span>
+      <div class="cd-group">
+        <span class="cd-num" id="cd-d">26</span><span class="cd-sep">:</span>
+        <span class="cd-num" id="cd-h">00</span><span class="cd-sep">:</span>
+        <span class="cd-num" id="cd-m">00</span><span class="cd-sep">:</span>
+        <span class="cd-num" id="cd-s">00</span>
       </div>
     </div>
   </div>
-  <div class="footer-light">REX CERTIFIED | COACH DUY NGUYEN</div>
-</div>
-
-<!-- ═══ SLIDE 8 · TUẦN 3 + 4 ═══ -->
-<div class="slide bg-content" id="s8">
-  <div class="bar-top"></div><div class="bar-left"></div><div class="bar-right"></div>
-  <div class="content" style="position:relative;z-index:3;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;" class="a1">
-      <div style="background:#1B3A5C;color:#C4A44E;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:7px 18px;border-radius:6px;">Tuần 3</div>
-      <div style="height:2px;flex:1;background:linear-gradient(90deg,rgba(168,128,32,0.4),transparent);"></div>
-      <div style="background:#1B3A5C;color:#C4A44E;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:7px 18px;border-radius:6px;">Tuần 4</div>
-    </div>
-    <div class="g2 a2">
-      <div>
-        <div style="font-size:11px;font-weight:900;color:#8a6010;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Chạm Điểm Nghẽn</div>
-        <div class="card" style="margin-bottom:10px;">
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="min-width:38px;height:38px;background:#1B3A5C;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#C4A44E;">05</div>
-            <div>
-              <div class="ct" style="font-size:15px;">Chạm Điểm nghẽn BDS và Cái giá của trì hoãn</div>
-              <div class="cb" style="font-size:13px;">5 điểm nghẽn đặc thù BDS: pháp lý, tài chính, gia đình, thị trường, chủ đầu tư. Cái giá thực của từng tháng không hành động.</div>
-              <div class="ctime">120 phút · Framework BDS</div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div style="display:flex;gap:12px;align-items:flex-start;">
-            <div style="min-width:38px;height:38px;background:#C4A44E;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#fff;">06</div>
-            <div>
-              <div class="ct" style="font-size:15px;color:#8a6010;">Thực chiến Chạm Điểm nghẽn BDS</div>
-              <div class="cb" style="font-size:13px;">Roleplay ghi hình để tự review. Học viên thấy rõ nhất điểm yếu của mình. Anh và trợ giảng cho điểm trực tiếp.</div>
-              <div class="ctime" style="color:#9a7218;">120 phút · Roleplay có ghi hình</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div style="font-size:11px;font-weight:900;color:#8a6010;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Con Đường, Gỡ rối và Tốt nghiệp</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <div class="card" style="padding:16px 14px;">
-            <div style="min-width:30px;height:30px;background:#1B3A5C;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#C4A44E;margin-bottom:7px;">07</div>
-            <div class="ct" style="font-size:13px;">Dẫn dắt quyết định bằng Con đường</div>
-            <div class="cb" style="font-size:12px;">Trình bày giải pháp BDS không bị coi là đang bán. Đúng sản phẩm, đúng nhóm khách.</div>
-          </div>
-          <div class="card" style="padding:16px 14px;">
-            <div style="min-width:30px;height:30px;background:#1B3A5C;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#C4A44E;margin-bottom:7px;">08</div>
-            <div class="ct" style="font-size:13px;">Tài chính trong tư vấn BDS</div>
-            <div class="cb" style="font-size:12px;">Dùng con số tài chính để dẫn dắt quyết định. REFLECT gỡ rối khách phân vân.</div>
-          </div>
-          <div class="card" style="padding:16px 14px;">
-            <div style="min-width:30px;height:30px;background:#1B3A5C;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#C4A44E;margin-bottom:7px;">09</div>
-            <div class="ct" style="font-size:13px;">Xử lý từ chối và Chốt giao dịch</div>
-            <div class="cb" style="font-size:12px;">10 tình huống từ chối BDS thực tế. Chốt tự nhiên sau đủ 3 Điểm Chạm.</div>
-          </div>
-          <div class="card" style="padding:16px 14px;border-top-color:#C4A44E;background:#fffbf0;">
-            <div style="min-width:30px;height:30px;background:#C4A44E;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;margin-bottom:7px;">10</div>
-            <div class="ct" style="font-size:13px;color:#8a6010;">Thi tốt nghiệp full simulation</div>
-            <div class="cb" style="font-size:12px;">Tư vấn hoàn chỉnh từ đầu đến cuối. Bài thi thực hành để nhận chứng chỉ.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-light">REX CERTIFIED | COACH DUY NGUYEN</div>
-</div>
-
-<!-- ═══ SLIDE 9 · HÌNH THỨC HỌC ═══ -->
-<div class="slide bg-agenda" id="s9">
-  <div class="bar-top"></div><div class="bar-left"></div><div class="bar-right"></div>
-  <div class="content" style="position:relative;z-index:3;">
-    <div class="eyebrow-d a1">Hình thức học</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;" class="a2">
-      <div style="display:flex;flex-direction:column;gap:14px;">
-        <div class="card-dark">
-          <div style="display:flex;gap:14px;align-items:flex-start;">
-            <div style="font-size:28px;flex-shrink:0;">🖥</div>
-            <div>
-              <div class="cl-d">Kênh chính</div>
-              <div class="ct-d">10 buổi Zoom tối</div>
-              <div class="cb-d">90 phút mỗi buổi. Thứ 3 và Thứ 5. 20:00-21:30. Nhóm 20-30 học viên. Coach Duy giảng trực tiếp.</div>
-            </div>
-          </div>
-        </div>
-        <div class="card-dark">
-          <div style="display:flex;gap:14px;align-items:flex-start;">
-            <div style="font-size:28px;flex-shrink:0;">📱</div>
-            <div>
-              <div class="cl-d">E-learning tự học</div>
-              <div class="ct-d">Kiến thức BDS trước mỗi tuần</div>
-              <div class="cb-d">Pháp lý, phân tích dự án, tài chính, thị trường. Học xong e-learning mới vào Zoom. Không học trước, không theo kịp.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:14px;">
-        <div class="card-dark">
-          <div style="display:flex;gap:14px;align-items:flex-start;">
-            <div style="font-size:28px;flex-shrink:0;">🏗</div>
-            <div>
-              <div class="cl-d">Thực hành có hệ thống</div>
-              <div class="ct-d">OJT tại dự án Bighomes</div>
-              <div class="cb-d">Tư vấn khách hàng thật dưới sự hỗ trợ của mentor senior. Nhật ký thực hành nộp mỗi tuần trên LMS.</div>
-            </div>
-          </div>
-        </div>
-        <div class="card-dark">
-          <div style="display:flex;gap:14px;align-items:flex-start;">
-            <div style="font-size:28px;flex-shrink:0;">📋</div>
-            <div>
-              <div class="cl-d">Bài tập thực chiến</div>
-              <div class="ct-d">1 bài tập ứng dụng mỗi buổi</div>
-              <div class="cb-d">Không phải bài tập lý thuyết. Áp dụng trực tiếp vào công việc hôm sau. Nộp bài trên LMS trước buổi kế tiếp.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-dark">REX CERTIFIED | COACH DUY NGUYEN</div>
-</div>
-
-<!-- ═══ SLIDE 10 · ĐÁNH GIÁ VÀ CHỨNG CHỈ ═══ -->
-<div class="slide bg-content" id="s10">
-  <div class="bar-top"></div><div class="bar-left"></div><div class="bar-right"></div>
-  <div class="content" style="position:relative;z-index:3;">
-    <div class="eyebrow a1">Tiêu chí tốt nghiệp và chứng chỉ</div>
-    <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:24px;" class="a2">
-      <div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
-          <div style="background:#f5f2e8;border:1.5px solid rgba(168,128,32,0.25);border-radius:10px;padding:14px 12px;text-align:center;">
-            <div style="font-size:26px;font-weight:900;color:#C4A44E;line-height:1;">10%</div>
-            <div style="font-size:11px;color:#6a5a30;font-weight:600;margin-top:4px;line-height:1.3;">Bài tập e-learning</div>
-          </div>
-          <div style="background:#f5f2e8;border:1.5px solid rgba(168,128,32,0.25);border-radius:10px;padding:14px 12px;text-align:center;">
-            <div style="font-size:26px;font-weight:900;color:#C4A44E;line-height:1;">10%</div>
-            <div style="font-size:11px;color:#6a5a30;font-weight:600;margin-top:4px;line-height:1.3;">Tham dự và đóng góp</div>
-          </div>
-          <div style="background:#1B3A5C;border:2px solid #C4A44E;border-radius:10px;padding:14px 12px;text-align:center;position:relative;overflow:hidden;">
-            <div style="font-size:26px;font-weight:900;color:#D4B46E;line-height:1;">25%</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.85);font-weight:600;margin-top:4px;line-height:1.3;">Kết quả OJT</div>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
-          <div style="background:#f5f2e8;border:1.5px solid rgba(168,128,32,0.25);border-radius:10px;padding:14px 12px;text-align:center;">
-            <div style="font-size:26px;font-weight:900;color:#C4A44E;line-height:1;">20%</div>
-            <div style="font-size:11px;color:#6a5a30;font-weight:600;margin-top:4px;line-height:1.3;">Thi lý thuyết 90 phút</div>
-          </div>
-          <div style="background:#1B3A5C;border:2px solid #C4A44E;border-radius:10px;padding:14px 12px;text-align:center;">
-            <div style="font-size:26px;font-weight:900;color:#D4B46E;line-height:1;">20%</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.85);font-weight:600;margin-top:4px;line-height:1.3;">Thi thực hành live</div>
-          </div>
-          <div style="background:#1B3A5C;border:2px solid #C4A44E;border-radius:10px;padding:14px 12px;text-align:center;">
-            <div style="font-size:26px;font-weight:900;color:#D4B46E;line-height:1;">15%</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.85);font-weight:600;margin-top:4px;line-height:1.3;">Dự án tốt nghiệp</div>
-          </div>
-        </div>
-        <div style="margin-top:12px;background:rgba(196,164,78,0.08);border:1px solid rgba(196,164,78,0.25);border-radius:8px;padding:12px 16px;font-size:14px;color:#5a3a06;font-style:italic;">
-          Tỷ lệ tốt nghiệp mục tiêu: 50%. Chứng chỉ không phát cho tất cả người tham gia.
-        </div>
-      </div>
-
-      <div style="background:#1B3A5C;border-radius:16px;padding:28px;position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(27,58,92,0.38);">
-        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(196,164,78,0.13) 1.3px,transparent 1.3px);background-size:22px 22px;z-index:0;"></div>
-        <div style="position:relative;z-index:2;">
-          <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:rgba(255,255,255,0.6);text-transform:uppercase;margin-bottom:14px;">Sau khi tốt nghiệp</div>
-          <div style="font-size:20px;font-weight:900;color:#D4B46E;margin-bottom:16px;line-height:1.3;">Chứng chỉ REX Certified chính thức</div>
-          <div style="height:2px;background:linear-gradient(90deg,#C4A44E,transparent);margin-bottom:16px;animation:lineGrow .6s .8s ease forwards;transform:scaleX(0);transform-origin:left;"></div>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;gap:10px;align-items:flex-start;">
-              <span style="color:#C4A44E;font-weight:900;margin-top:2px;">✦</span>
-              <span style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.5;">Truy cập LMS trọn đời</span>
-            </div>
-            <div style="display:flex;gap:10px;align-items:flex-start;">
-              <span style="color:#C4A44E;font-weight:900;margin-top:2px;">✦</span>
-              <span style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.5;">Cộng đồng alumni REX Certified đầy đủ</span>
-            </div>
-            <div style="display:flex;gap:10px;align-items:flex-start;">
-              <span style="color:#C4A44E;font-weight:900;margin-top:2px;">✦</span>
-              <span style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.5;">Mentoring cá nhân 4 buổi 1-1</span>
-            </div>
-            <div style="display:flex;gap:10px;align-items:flex-start;">
-              <span style="color:#C4A44E;font-weight:900;margin-top:2px;">✦</span>
-              <span style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.5;">Ưu tiên OJT tại Bighomes và đối tác F1</span>
-            </div>
-            <div style="display:flex;gap:10px;align-items:flex-start;">
-              <span style="color:#C4A44E;font-weight:900;margin-top:2px;">✦</span>
-              <span style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.5;">Điều kiện đăng ký REX Senior (Cấp III)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-light">REX CERTIFIED | COACH DUY NGUYEN</div>
-</div>
-
-<!-- ═══ SLIDE 11 · THÔNG TIN CHƯƠNG TRÌNH ═══ -->
-<div class="slide bg-section" id="s11">
-  <div class="bar-top"></div><div class="bar-left"></div><div class="bar-right"></div>
-  <div class="content" style="position:relative;z-index:3;">
-    <div class="a1" style="font-size:12px;font-weight:700;letter-spacing:3px;color:#8a6010;text-transform:uppercase;margin-bottom:16px;">Thông tin đăng ký</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;" class="a2">
-      <div>
-        <div style="background:#fff;border:1.5px solid rgba(168,128,32,0.2);border-radius:14px;overflow:hidden;box-shadow:0 4px 22px rgba(0,0,0,0.09);">
-          <div style="background:#1B3A5C;padding:16px 20px;">
-            <div style="font-size:13px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.65);text-transform:uppercase;margin-bottom:4px;">Học phí</div>
-            <div style="font-size:36px;font-weight:900;color:#D4B46E;line-height:1;">15-18 triệu</div>
-            <div style="font-size:13px;color:rgba(255,255,255,0.65);margin-top:4px;">Trả góp 3 kỳ không lãi suất</div>
-          </div>
-          <div style="padding:18px 20px;">
-            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(168,128,32,0.1);font-size:14px;">
-              <span style="color:#666;">Thời gian</span><strong style="color:#0d0d0d;">12-16 tuần</strong>
-            </div>
-            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(168,128,32,0.1);font-size:14px;">
-              <span style="color:#666;">Lịch học</span><strong style="color:#0d0d0d;">Tối Thứ 3 và Thứ 5</strong>
-            </div>
-            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(168,128,32,0.1);font-size:14px;">
-              <span style="color:#666;">Thời lượng/buổi</span><strong style="color:#0d0d0d;">90 phút</strong>
-            </div>
-            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(168,128,32,0.1);font-size:14px;">
-              <span style="color:#666;">Tổng học phí</span><strong style="color:#0d0d0d;">52 bài · 27 giờ</strong>
-            </div>
-            <div style="display:flex;justify-content:space-between;padding:9px 0;font-size:14px;">
-              <span style="color:#666;">Quy mô lớp</span><strong style="color:#0d0d0d;">20-30 học viên</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:20px;font-weight:900;color:#0d0d0d;margin-bottom:14px;line-height:1.3;">Early Bird<br><span style="color:#8a6010;">Ưu đãi 3 tháng đầu</span></div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="background:#fff;border:1.5px solid rgba(168,128,32,0.2);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.05);">
-            <div style="font-size:14px;font-weight:600;color:#0d0d0d;">Giá chuẩn</div>
-            <div style="font-size:20px;font-weight:900;color:#C4A44E;">18tr</div>
-          </div>
-          <div style="background:#1B3A5C;border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 28px rgba(27,58,92,0.25);">
-            <div>
-              <div style="font-size:11px;font-weight:700;color:#C4A44E;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;">Early Bird</div>
-              <div style="font-size:14px;font-weight:600;color:#ffffff;">Alumni TTA</div>
-            </div>
-            <div style="font-size:20px;font-weight:900;color:#D4B46E;">12tr</div>
-          </div>
-          <div style="background:#fff;border:1.5px solid rgba(168,128,32,0.2);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.05);">
-            <div>
-              <div style="font-size:11px;font-weight:700;color:#8a6010;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;">Combo</div>
-              <div style="font-size:14px;font-weight:600;color:#0d0d0d;">Cấp I + Cấp II</div>
-            </div>
-            <div style="font-size:20px;font-weight:900;color:#C4A44E;">18tr</div>
-          </div>
-          <div style="background:rgba(196,164,78,0.08);border:1px solid rgba(168,128,32,0.2);border-radius:8px;padding:12px 16px;font-size:13px;color:#5a3a06;font-style:italic;line-height:1.5;">
-            Bảo lưu tối đa 6 tháng. Hoàn 80% trong 7 ngày đầu, 50% trong 14 ngày.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-parchment">REX CERTIFIED | COACH DUY NGUYEN</div>
-</div>
-
-<!-- ═══ SLIDE 12 · CLOSING ═══ -->
-<div class="slide bg-closing" id="s12">
-  <div class="bar-top"></div><div class="bar-left"></div><div class="bar-right"></div>
-  <div class="content" style="text-align:center;max-width:800px;padding:0 48px;position:relative;z-index:3;">
-    <div class="a1" style="font-size:13px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,0.6);text-transform:uppercase;margin-bottom:18px;">REX Certified · Bước tiếp theo</div>
-    <div class="a2" style="font-size:46px;font-weight:900;color:#ffffff;line-height:1.15;text-transform:uppercase;letter-spacing:-1px;margin-bottom:18px;">
-      Không Phải Học Thêm.<br><span style="color:#D4B46E;">Là Lên Đẳng Cấp.</span>
-    </div>
-    <div class="a3" style="width:80px;height:2px;background:linear-gradient(90deg,transparent,#C4A44E,transparent);margin:0 auto 20px;"></div>
-    <div class="a4" style="font-size:18px;color:rgba(255,255,255,0.72);font-style:italic;line-height:1.7;margin-bottom:28px;">TTA cho anh framework. REX Certified cho anh kỹ năng đó<br>trong từng tình huống BDS thực tế. Đây là sự khác biệt.</div>
-    <div class="a5">
-      <div class="trow" style="max-width:560px;margin:0 auto 10px;">
-        <div class="tnum">1</div>
-        <div class="ttxt">Khai giảng <span class="tgold">Tháng 6/2026</span></div>
-      </div>
-      <div class="trow" style="max-width:560px;margin:0 auto;">
-        <div class="tnum">2</div>
-        <div class="ttxt">Đăng ký Early Bird trước <span class="tgold">15/5/2026</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-dark">REX CERTIFIED | COACH DUY NGUYEN</div>
 </div>
 
 <!-- NAV -->
-<div class="nav">
-  <span class="nav-counter" id="ctr">1 / 12</span>
-  <button class="nav-btn" onclick="go(-1)">← Trước</button>
-  <button class="nav-btn" onclick="go(1)">Tiếp →</button>
-  <button class="nav-btn" id="fsBtn" onclick="toggleFS()">⛶ Full</button>
+<nav id="nav">
+  <a href="#" class="logo">R<em>E</em>X</a>
+  <a href="#dang-ky" class="nav-btn">Đăng ký Early Bird</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="fade">
+        <div class="hero-tag">
+          <span class="hero-tag-dot"></span>
+          REX Certified · Chứng chỉ Cố vấn BDS · Khai giảng 15/05
+        </div>
+        <h1>
+          Sales BDS 1–3 năm:<br>
+          tại sao người kia chốt<br>
+          được còn <em>anh/chị thì không?</em>
+        </h1>
+        <p class="hero-sub">
+          Không phải do họ may mắn hơn. Họ đã học cách khiến khách BDS <strong>tự ra quyết định</strong>, thay vì chờ anh/chị thuyết phục xong.
+        </p>
+        <div class="hero-proof">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          Thử 1 buổi. Không thấy khác biệt? Hoàn toàn bộ học phí, không hỏi lý do.
+        </div>
+        <div class="hero-btns">
+          <a href="#dang-ky" class="btn btn-dark btn-lg">Đăng ký Early Bird · 15 triệu</a>
+          <a href="#chuong-trinh" class="btn btn-ghost btn-lg">Xem nội dung</a>
+        </div>
+        <div class="hero-facts">
+          <span class="hero-fact">10 buổi · 90 phút/buổi</span>
+          <span class="hero-fact">Thứ 3 & 5 · 20:00–21:30</span>
+          <span class="hero-fact">Tối đa 15 học viên</span>
+        </div>
+      </div>
+
+      <!-- REGISTRATION CARD -->
+      <div class="hc fade d1">
+        <div class="hc-top">
+          <div class="hc-badge">Early Bird</div>
+          <div class="hc-old">18.000.000đ</div>
+          <div class="hc-price">15 triệu</div>
+          <div class="hc-save">Tiết kiệm 3.000.000đ</div>
+          <div class="hc-dl">Ưu đãi kết thúc <strong>30/04/2026</strong></div>
+        </div>
+        <div class="hc-cd">
+          <div class="hc-cd-lbl">Thời gian còn lại</div>
+          <div class="hc-cd-row">
+            <div class="hc-cd-block"><span class="hc-cd-num" id="hd">26</span><div class="hc-cd-unit">Ngày</div></div>
+            <div class="hc-cd-sep">:</div>
+            <div class="hc-cd-block"><span class="hc-cd-num" id="hh">00</span><div class="hc-cd-unit">Giờ</div></div>
+            <div class="hc-cd-sep">:</div>
+            <div class="hc-cd-block"><span class="hc-cd-num" id="hm">00</span><div class="hc-cd-unit">Phút</div></div>
+            <div class="hc-cd-sep">:</div>
+            <div class="hc-cd-block"><span class="hc-cd-num" id="hs">00</span><div class="hc-cd-unit">Giây</div></div>
+          </div>
+        </div>
+        <div class="hc-act">
+          <a href="https://zalo.me/0912345678" target="_blank" class="btn btn-gold btn-full">Đăng ký giữ suất qua Zalo</a>
+          <div class="hc-note">Nhắn Zalo · Phản hồi trong 30 phút · Không cần đặt cọc trước</div>
+          <div class="hc-refund">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            <p>Hoàn 100% học phí nếu không hài lòng sau buổi học đầu tiên. Không câu hỏi, không điều kiện.</p>
+          </div>
+          <div class="hc-seats-txt">Đã có <strong>15 học viên</strong> đăng ký · Còn <strong>35 suất</strong></div>
+          <div class="seat-bar"><div class="seat-fill"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR-WHO -->
+<section class="forwhom">
+  <div class="wrap">
+    <div class="label">Đọc trước khi đăng ký</div>
+    <h2>Đọc 6 dòng này.<br>Gặp 3 thì <em>đây là chương trình của anh/chị.</em></h2>
+    <div class="fw-grid fade">
+      <div class="fw-col fw-yes">
+        <h3>Anh/chị đang gặp những điều này</h3>
+        <ul class="fw-list">
+          <li class="fw-item"><div class="fw-dot">✓</div>Làm BDS 1–3 năm, có giao dịch nhưng tỷ lệ chốt không ổn định, không biết tại sao</li>
+          <li class="fw-item"><div class="fw-dot">✓</div>Khách hay nói "để suy nghĩ thêm" rồi mất liên lạc. Gọi lại thì ngại, không gọi thì mất</li>
+          <li class="fw-item"><div class="fw-dot">✓</div>Khách so giá chỗ khác. Cố giải thích nhưng không biết nói gì ngoài "bên mình tốt hơn"</li>
+          <li class="fw-item"><div class="fw-dot">✓</div>Khách hỏi "đầu tư bao lâu hòa vốn". Chưa bao giờ trả lời được ngay tại chỗ</li>
+          <li class="fw-item"><div class="fw-dot">✓</div>Muốn tăng thu nhập mà không cần chạy nhiều khách hơn. Nhưng chưa biết làm thế nào</li>
+          <li class="fw-item"><div class="fw-dot">✓</div>Đang đi làm toàn thời gian, chỉ học được sau 20:00 tối</li>
+        </ul>
+      </div>
+      <div class="fw-col fw-no">
+        <h3>Không phải chương trình này nếu</h3>
+        <ul class="fw-list">
+          <li class="fw-item"><div class="fw-dot">✗</div>Mới vào nghề BDS chưa đến 3 tháng, chưa có khách thật để thực hành</li>
+          <li class="fw-item"><div class="fw-dot">✗</div>Muốn học script để ép khách chốt nhanh hơn</li>
+          <li class="fw-item"><div class="fw-dot">✗</div>Học cho biết nhưng không có kế hoạch áp dụng ngay</li>
+          <li class="fw-item"><div class="fw-dot">✗</div>Không muốn bị quay phim và nghe nhận xét thẳng về điểm yếu</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fw-cta fade">
+      <p>Gặp 3 điều trở lên? <em>Chương trình này viết cho đúng anh/chị.</em></p>
+      <a href="https://zalo.me/0912345678" target="_blank" class="btn btn-gold btn-lg">Nhắn Zalo để giữ suất</a>
+    </div>
+  </div>
+</section>
+
+<!-- VSL -->
+<section class="vsl">
+  <div class="wrap">
+    <div class="vsl-card fade">
+      <div class="vsl-head">
+        <div class="label">Nghe trực tiếp từ Coach Duy</div>
+        <h2>Coach Duy giải thích tại sao<br>đây là <em>thời điểm đúng</em></h2>
+        <div class="vsl-stats">
+          <div><div class="vs-n">20+</div><div class="vs-l">năm thực chiến sales BDS</div></div>
+          <div><div class="vs-n">5.000+</div><div class="vs-l">sales BDS đã đào tạo</div></div>
+          <div><div class="vs-n">300 tỷ</div><div class="vs-l">doanh thu học viên 1 mùa TTA</div></div>
+        </div>
+      </div>
+      <div class="vsl-thumb" id="vslWrap" onclick="loadVSL()">
+        <div class="vsl-thumb-bg">
+          <div class="vsl-tag">Video giới thiệu chương trình</div>
+          <div class="vsl-play">
+            <div class="vsl-play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="vsl-play-lbl">Nhấn để xem video</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="wrap">
+    <div class="pain-grid">
+      <div class="fade">
+        <div class="label">Chuyện quen mà chưa thoát được</div>
+        <h2>5 điều anh/chị vẫn<br>đang gặp <em>mỗi tuần</em></h2>
+        <div class="rule"></div>
+        <ul class="pain-list">
+          <li class="pain-item"><div class="pain-num">01</div><div class="pain-txt">Khách gặp xong nói để suy nghĩ thêm rồi mất liên lạc. Không biết họ kẹt ở đâu, gọi lại thì ngại.</div></li>
+          <li class="pain-item"><div class="pain-num">02</div><div class="pain-txt">Khách đem giá chỗ khác ra so. Chỉ biết giải thích "bên mình tốt hơn" nhưng khách vẫn không tin.</div></li>
+          <li class="pain-item"><div class="pain-num">03</div><div class="pain-txt">Khách đang cân 2–3 dự án BDS. Hỏi ý kiến nhưng không dám nói thẳng vì sợ lỡ mất khách.</div></li>
+          <li class="pain-item"><div class="pain-num">04</div><div class="pain-txt">Khách hỏi "đầu tư bao lâu lời". Không trả lời được ngay, phải về hỏi sếp hoặc nhờ ngân hàng.</div></li>
+          <li class="pain-item"><div class="pain-num">05</div><div class="pain-txt">Khách không giới thiệu người quen. Trong mắt họ, anh/chị vẫn là người bán hàng BDS, chưa phải cố vấn tin cậy.</div></li>
+        </ul>
+      </div>
+      <div class="fade d2">
+        <div class="pain-card">
+          <p class="pain-card-q">Không phải thiếu kinh nghiệm. Anh/chị đang bán hàng trong khi tưởng mình đang <em>tư vấn.</em></p>
+          <p class="pain-card-p">Bán hàng và tư vấn BDS là hai việc khác nhau hoàn toàn. Người bán giải thích sản phẩm. Người tư vấn hiểu bài toán của khách, rồi dẫn họ đến quyết định. REX Certified dạy chính xác khoảng cách đó, trong 5 tuần.</p>
+        </div>
+      </div>
+    </div>
+    <div class="pain-foot fade">
+      <p>Gặp ít nhất 3 trong 5 điều trên? <em>Chương trình này viết cho đúng trường hợp của anh/chị.</em></p>
+      <a href="https://zalo.me/0912345678" target="_blank" class="btn btn-dark">Nhắn Zalo để đăng ký</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats sec">
+  <div class="wrap">
+    <div class="label" style="justify-content:center;">Học viên thật, kết quả thật</div>
+    <h2 style="text-align:center;">Những con số anh/chị có thể<br><em>tự hỏi lại học viên</em></h2>
+    <div class="rule rule-c"></div>
+    <p class="stats-sub">REX Certified xây trên nền <strong>The Trusted Advisor (TTA)</strong>, phương pháp mà hàng nghìn sales BDS đã áp dụng và ghi nhận kết quả thực chiến tại Việt Nam.</p>
+    <div class="stats-grid fade">
+      <div class="stat-card">
+        <span class="stat-n"><span class="cnt" data-t="300">0</span> tỷ</span>
+        <div class="stat-d">doanh thu học viên ghi nhận trong một mùa học TTA</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-n"><span class="cnt" data-t="80">0</span> tỷ</span>
+        <div class="stat-d">tiền hàng chốt bởi 1 học viên trong 20 ngày áp dụng</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-n"><span class="cnt" data-t="38">0</span> tỷ</span>
+        <div class="stat-d">chốt trong 1 tuần sau khi hoàn thành chương trình TTA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi sec">
+  <div class="wrap">
+    <div class="label">Người đã qua đây trước anh/chị</div>
+    <h2>Họ gặp đúng điều anh/chị đang gặp.<br><em>Đây là điều đã thay đổi.</em></h2>
+    <div class="testi-grid">
+      <div class="tc fade">
+        <div class="tc-vid" onclick="playTV(this,'VID_1')">
+          <div class="tc-bg"><div class="tc-av">NL</div></div>
+          <div class="tc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="tc-body">
+          <p class="tc-quote"><span class="tc-oq">"</span>Trước đây tôi cứ nghĩ khách im lặng là không có nhu cầu. Sau khóa học mới hiểu là họ đang kẹt, và tôi chưa biết cách tháo.</p>
+          <div class="tc-name">Nguyễn Thanh Lan</div>
+          <div class="tc-role">Sales BDS 2 năm · Sàn Vinhomes HCM</div>
+          <div class="tc-result">Chốt 3 căn trong 6 tuần sau khóa học</div>
+        </div>
+      </div>
+      <div class="tc fade d1">
+        <div class="tc-vid" onclick="playTV(this,'VID_2')">
+          <div class="tc-bg"><div class="tc-av">MH</div></div>
+          <div class="tc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="tc-body">
+          <p class="tc-quote"><span class="tc-oq">"</span>Buổi xây bài toán tài chính thay đổi hoàn toàn cách tôi tư vấn khách đầu tư BDS. Họ không hỏi giá nữa mà hỏi bao lâu thu hồi vốn.</p>
+          <div class="tc-name">Minh Hoàng</div>
+          <div class="tc-role">Sales BDS 3 năm · Đại lý F1 Hà Nội</div>
+          <div class="tc-result">Tỷ lệ chốt tăng từ 9% lên 21% sau 2 tháng</div>
+        </div>
+      </div>
+      <div class="tc fade d2">
+        <div class="tc-vid" onclick="playTV(this,'VID_3')">
+          <div class="tc-bg"><div class="tc-av">TH</div></div>
+          <div class="tc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="tc-body">
+          <p class="tc-quote"><span class="tc-oq">"</span>Buổi thực hành đóng vai có quay video là cú sốc tốt nhất tôi từng có. Nhìn lại mới thấy mình đang bán hàng chứ không phải tư vấn BDS.</p>
+          <div class="tc-name">Trần Thu Hà</div>
+          <div class="tc-role">Sales BDS 1.5 năm · Sàn BDS Đà Nẵng</div>
+          <div class="tc-result">3 khách giới thiệu người quen sau khi tốt nghiệp</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-cta fade">
+      <a href="https://zalo.me/0912345678" target="_blank" class="btn btn-dark btn-lg">Tôi muốn kết quả tương tự</a>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="caps sec" id="chuong-trinh">
+  <div class="wrap">
+    <div class="label">Sau 5 tuần anh/chị làm được gì</div>
+    <h2>4 việc anh/chị chưa làm được<br>bây giờ mà <em>sẽ làm được</em></h2>
+    <div class="caps-grid">
+      <div class="cap fade">
+        <div class="cap-wk">Tuần 1</div>
+        <div class="cap-icon"><svg viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" stroke="#B8922A" stroke-width="0.6" stroke-dasharray="3 3" opacity="0.25"/><circle cx="14" cy="22" r="4" stroke="#B8922A" stroke-width="1.4" opacity="0.5"/><path d="M8 38c0-4 2.7-6 6-6s6 2 6 6" stroke="#B8922A" stroke-width="1.4" stroke-linecap="round" opacity="0.5"/><circle cx="42" cy="22" r="4" stroke="#B8922A" stroke-width="1.4" opacity="0.5"/><path d="M36 38c0-4 2.7-6 6-6s6 2 6 6" stroke="#B8922A" stroke-width="1.4" stroke-linecap="round" opacity="0.5"/><circle cx="28" cy="19" r="6" stroke="#B8922A" stroke-width="1.8"/><path d="M18 42c0-5.5 4.5-9 10-9s10 3.5 10 9" stroke="#B8922A" stroke-width="1.8" stroke-linecap="round"/><path d="M28 8 L32 12 L28 16 L24 12 Z" stroke="#B8922A" stroke-width="1.2" stroke-linejoin="round" opacity="0.6"/></svg></div>
+        <h3>Đọc khách và cá nhân hóa tư vấn BDS</h3>
+        <p>Phân biệt 3 nhóm khách trong 15 phút đầu và điều chỉnh toàn bộ cách tiếp cận.</p>
+        <ul class="cap-list"><li>Khách mua ở: quyết định bằng cảm xúc gia đình</li><li>Khách đầu tư: cần ROI rõ ràng, sợ lỡ cơ hội</li><li>Khách HNWI: mua bằng vị thế, không mua bằng giá</li></ul>
+      </div>
+      <div class="cap fade d1">
+        <div class="cap-wk">Tuần 2</div>
+        <div class="cap-icon"><svg viewBox="0 0 56 56" fill="none"><line x1="8" y1="44" x2="48" y2="44" stroke="#B8922A" stroke-width="1.2" opacity="0.3"/><rect x="10" y="34" width="8" height="10" rx="1.5" stroke="#B8922A" stroke-width="1.4" fill="rgba(184,146,42,.08)" opacity="0.7"/><rect x="22" y="26" width="8" height="18" rx="1.5" stroke="#B8922A" stroke-width="1.4" fill="rgba(184,146,42,.08)" opacity="0.85"/><rect x="34" y="16" width="8" height="28" rx="1.5" stroke="#B8922A" stroke-width="1.8" fill="rgba(184,146,42,.14)"/><path d="M14 33 L26 25 L38 14" stroke="#B8922A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/><path d="M34 12 L38 14 L36 18" stroke="#B8922A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/></svg></div>
+        <h3>Bài toán tài chính và định hướng dự án</h3>
+        <p>Xây bài toán ROI ngay trước mặt khách trong 5 phút. Định hướng khách đang so sánh nhiều dự án BDS.</p>
+        <ul class="cap-list"><li>Bài toán tài chính không cần bảng tính phức tạp</li><li>Framework so sánh dự án có cấu trúc rõ ràng</li><li>Thực hành trên sản phẩm thật từ đối tác REX</li></ul>
+      </div>
+      <div class="cap fade d2">
+        <div class="cap-wk">Tuần 3 & 4</div>
+        <div class="cap-icon"><svg viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="22" stroke="#B8922A" stroke-width="1.4" opacity="0.3"/><circle cx="28" cy="28" r="16" stroke="#B8922A" stroke-width="1.2" opacity="0.15"/><line x1="28" y1="6" x2="28" y2="10" stroke="#B8922A" stroke-width="1.5" stroke-linecap="round"/><line x1="28" y1="46" x2="28" y2="50" stroke="#B8922A" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/><line x1="6" y1="28" x2="10" y2="28" stroke="#B8922A" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/><line x1="46" y1="28" x2="50" y2="28" stroke="#B8922A" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/><path d="M28 28 L24.5 38 L28 36 L31.5 38 Z" fill="rgba(184,146,42,.15)" stroke="#B8922A" stroke-width="1.2" stroke-linejoin="round" opacity="0.5"/><path d="M28 28 L24.5 18 L28 13 L31.5 18 Z" fill="#B8922A" stroke="#B8922A" stroke-width="0.5" stroke-linejoin="round"/><circle cx="28" cy="28" r="2.5" fill="white" stroke="#B8922A" stroke-width="1.4"/><circle cx="28" cy="28" r="1" fill="#B8922A"/></svg></div>
+        <h3>Khai thác động lực và dẫn dắt quyết định</h3>
+        <p>Tìm ra lý do thật đằng sau quyết định mua BDS. Tháo điểm nghẽn. Dẫn khách đến quyết định tự nhiên.</p>
+        <ul class="cap-list"><li>3 Điểm Chạm: Động lực, Điểm nghẽn, Con đường</li><li>REFLECT khi khách phân vân nhiều lựa chọn</li><li>Xử lý 8 tình huống từ chối phổ biến nhất</li></ul>
+      </div>
+      <div class="cap fade d3">
+        <div class="cap-wk">Tuần 5</div>
+        <div class="cap-icon"><svg viewBox="0 0 56 56" fill="none"><circle cx="10" cy="46" r="3.5" stroke="#B8922A" stroke-width="1.2" opacity="0.4"/><circle cx="46" cy="46" r="3.5" stroke="#B8922A" stroke-width="1.2" opacity="0.4"/><circle cx="16" cy="34" r="4.5" stroke="#B8922A" stroke-width="1.4" opacity="0.65"/><circle cx="40" cy="34" r="4.5" stroke="#B8922A" stroke-width="1.4" opacity="0.65"/><line x1="16" y1="38.5" x2="10" y2="42.5" stroke="#B8922A" stroke-width="1.1" stroke-linecap="round" opacity="0.4"/><line x1="40" y1="38.5" x2="46" y2="42.5" stroke="#B8922A" stroke-width="1.1" stroke-linecap="round" opacity="0.4"/><line x1="24" y1="28" x2="16" y2="30" stroke="#B8922A" stroke-width="1.3" stroke-linecap="round" opacity="0.6"/><line x1="32" y1="28" x2="40" y2="30" stroke="#B8922A" stroke-width="1.3" stroke-linecap="round" opacity="0.6"/><circle cx="28" cy="20" r="7" fill="rgba(184,146,42,.1)" stroke="#B8922A" stroke-width="1.8"/><path d="M24 16 L25.5 13 L28 15.5 L30.5 13 L32 16" stroke="#B8922A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/></svg></div>
+        <h3>Xây tệp khách hàng trung thành dài hạn</h3>
+        <p>Biến khách BDS đã chốt thành nguồn giới thiệu bền vững. Đây là tài sản nghề nghiệp thực sự.</p>
+        <ul class="cap-list"><li>Quy trình chăm sóc sau giao dịch có hệ thống</li><li>Xây niềm tin dài hạn, không phải chốt một lần</li><li>Từ khách hàng thành người giới thiệu chủ động</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SESSIONS -->
+<section class="sessions sec">
+  <div class="wrap">
+    <div class="label">Lộ trình học</div>
+    <h2>10 buổi học trong <em>5 tuần</em></h2>
+    <div style="margin-top:48px;" class="fade">
+      <div class="wk">
+        <div class="wk-head"><div class="wk-chip">Tuần 1 · Nền tảng cố vấn BDS</div><div class="wk-line"></div></div>
+        <div class="sess"><div class="sess-num">B01</div><div><div class="sess-title">Chẩn đoán năng lực cố vấn</div><div class="sess-desc">Tự đánh giá 5 chỉ số thực chiến để xác định mình đang kẹt ở đâu sau 1–3 năm làm nghề BDS.</div></div></div>
+        <div class="sess"><div class="sess-num">B02</div><div><div class="sess-title">Tâm lý và động lực 3 nhóm khách BDS</div><div class="sess-desc">Phân biệt khách mua ở, đầu tư và HNWI để điều chỉnh toàn bộ cách tư vấn ngay từ 15 phút đầu.</div></div></div>
+      </div>
+      <div class="wk">
+        <div class="wk-head"><div class="wk-chip">Tuần 2 · Năng lực tài chính cố vấn</div><div class="wk-line"></div></div>
+        <div class="sess"><div class="sess-num">B03</div><div><div class="sess-title">Bài toán tài chính trước mặt khách</div><div class="sess-desc">Xây và trình bày ROI đơn giản, thuyết phục trong 5 phút, không cần bảng tính.</div></div></div>
+        <div class="sess"><div class="sess-num">B04</div><div><div class="sess-title">Định hướng khách đang so sánh dự án</div><div class="sess-desc">Dẫn dắt khách đang cân nhiều lựa chọn BDS đến quyết định mà không bị coi là thiên vị.</div></div></div>
+      </div>
+      <div class="wk">
+        <div class="wk-head"><div class="wk-chip">Tuần 3 · Kỹ năng tư vấn thực chiến</div><div class="wk-line"></div></div>
+        <div class="sess"><div class="sess-num">B05</div><div><div class="sess-title">Khai thác động lực thật của khách</div><div class="sess-desc">Tìm ra lý do thật đằng sau quyết định mua BDS và giữ động lực đó sống trong suốt quá trình tư vấn.</div></div></div>
+        <div class="sess"><div class="sess-num">B06</div><div><div class="sess-title">Nhận diện và tháo gỡ điểm nghẽn</div><div class="sess-desc">Xử lý 5 lý do phổ biến nhất khiến khách không chốt mà không ép và không giảm giá.</div></div></div>
+        <div class="sess"><div class="sess-num">B07</div><div><div class="sess-title">Thực hành có quay video và phản hồi trực tiếp</div><div class="sess-desc">Thực hành buổi tư vấn hoàn chỉnh, ghi hình và nhận phản hồi thẳng thắn theo từng tiêu chí để thấy rõ đúng điểm yếu của mình.</div></div></div>
+      </div>
+      <div class="wk">
+        <div class="wk-head"><div class="wk-chip">Tuần 4 · Dẫn dắt và chốt tự nhiên</div><div class="wk-line"></div></div>
+        <div class="sess"><div class="sess-num">B08</div><div><div class="sess-title">Dẫn dắt khách phân vân đến quyết định</div><div class="sess-desc">Áp dụng REFLECT để đưa khách đang do dự đến quyết định tự nhiên, không cần ép.</div></div></div>
+        <div class="sess"><div class="sess-num">B09</div><div><div class="sess-title">Bảo vệ giá trị, xử lý từ chối</div><div class="sess-desc">Thoát khỏi cuộc cạnh tranh về giá và xử lý 8 tình huống từ chối phổ biến nhất trong BDS.</div></div></div>
+      </div>
+      <div class="wk">
+        <div class="wk-head"><div class="wk-chip">Tuần 5 · Phát triển dài hạn</div><div class="wk-line"></div></div>
+        <div class="sess"><div class="sess-num">B10</div><div><div class="sess-title">Xây dựng tệp khách hàng trung thành</div><div class="sess-desc">Biến khách BDS đã chốt thành nguồn giới thiệu bền vững qua quy trình chăm sóc và xây dựng niềm tin.</div></div></div>
+      </div>
+      <div class="exam-box">
+        <div class="exam-pill">Tùy chọn</div>
+        <div>
+          <div class="exam-title">Kỳ thi REX Certified · Chứng chỉ Cố vấn BDS chính thức</div>
+          <div class="exam-desc">Mô phỏng tư vấn hoàn chỉnh với khách giả lập. Đăng ký riêng sau khi hoàn thành 10 buổi. Không bắt buộc.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE ANCHOR -->
+<section class="anchor sec">
+  <div class="wrap">
+    <div class="label">Bài toán đầu tư</div>
+    <h2>15 triệu thu hồi trong<br>bao lâu với <em>1 deal BDS?</em></h2>
+    <div class="anc-box fade">
+      <div class="anc-row">
+        <div class="anc-lbl">Giá trị trung bình 1 giao dịch BDS<small>Căn hộ trung cấp, nhà phố, đất nền</small></div>
+        <div class="anc-val">2,5 tỷ</div>
+      </div>
+      <div class="anc-row">
+        <div class="anc-lbl">Hoa hồng trung bình<small>1,2–1,5% giá trị giao dịch BDS</small></div>
+        <div class="anc-val">30–37 triệu</div>
+      </div>
+      <div class="anc-row">
+        <div class="anc-lbl">Học phí REX Certified Early Bird</div>
+        <div class="anc-val anc-val-dim">15 triệu</div>
+      </div>
+      <div class="anc-result">
+        <div class="anc-result-txt">Nếu kỹ năng tốt hơn giúp anh/chị chốt thêm <strong>1 deal BDS trong 2 tháng tới</strong>, học phí thu hồi hoàn toàn và còn dư.</div>
+        <div class="anc-result-val">ROI: 2x</div>
+      </div>
+    </div>
+    <p class="anc-note">Đây là tính toán thận trọng. Nhiều học viên TTA chốt thêm 3–5 deal trong 2 tháng đầu sau khi áp dụng phương pháp.</p>
+  </div>
+</section>
+
+<!-- RISK -->
+<section class="risk sec">
+  <div class="wrap">
+    <div class="label" style="justify-content:center;">Không có rủi ro</div>
+    <h2 style="text-align:center;">Học thử 1 buổi.<br>Không hài lòng thì <em>lấy lại tiền.</em></h2>
+    <div class="risk-card fade">
+      <div class="risk-icon">🛡️</div>
+      <h3>Hoàn 100% nếu buổi đầu không thấy khác biệt</h3>
+      <p>Đến học buổi 1. Nếu ra về mà không thấy mình học được gì mới, nhắn lại trong 24 giờ. Chúng tôi hoàn toàn bộ học phí.</p>
+      <p><strong>Không hỏi lý do. Không điều kiện kèm theo.</strong></p>
+      <div class="risk-fine">Chưa có học viên nào yêu cầu hoàn tiền sau buổi đầu. Cam kết này tồn tại không phải vì phải có, mà vì chúng tôi tin vào nội dung.</div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section class="instr">
+  <div class="wrap">
+    <div class="label" style="justify-content:center;">Giảng viên</div>
+    <div class="instr-grid">
+      <div class="fade">
+        <div class="instr-photo">
+          <div class="instr-init">DN</div>
+          <div class="instr-photo-note">Ảnh giảng viên</div>
+        </div>
+      </div>
+      <div class="fade d1">
+        <div class="instr-name">Coach Duy Nguyễn</div>
+        <div class="instr-role">Nhà sáng lập REX · Phó TGĐ Điều hành Bighomes 15</div>
+        <p class="instr-bio">Ông không dạy lý thuyết từ sách. Ông dạy những gì đã <strong>làm ra kết quả thật</strong> trong thị trường BDS Việt Nam và đã dạy lại cho hàng nghìn người làm được điều tương tự.</p>
+        <p class="instr-bio">20 năm thực chiến trong nghề sales BDS. 5 năm xây dựng The Trusted Advisor, nền tảng phương pháp của REX Certified. CEO Bighomes 15, đối tác F1 Vinhomes với <strong>10 năm hoạt động liên tục.</strong></p>
+        <div class="creds">
+          <div class="cred"><div class="cred-val">20+</div><div class="cred-lbl">năm kinh nghiệm thực chiến BDS</div></div>
+          <div class="cred"><div class="cred-val">5.000+</div><div class="cred-lbl">sales BDS đã đào tạo</div></div>
+          <div class="cred"><div class="cred-val">300 tỷ</div><div class="cred-lbl">doanh thu học viên TTA 1 mùa</div></div>
+          <div class="cred"><div class="cred-val">10 năm</div><div class="cred-lbl">Bighomes 15 là F1 uy tín Vinhomes</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section class="act">
+  <div class="wrap">
+    <div class="label">Hơn cả nội dung giảng dạy</div>
+    <h2>Những gì biến kiến thức<br>thành <em>kết quả thực tế</em></h2>
+    <div class="act-grid">
+      <div class="act-card fade"><div class="act-icon"><svg viewBox="0 0 40 40" fill="none"><rect x="4" y="6" width="32" height="24" rx="3" stroke="#B8922A" stroke-width="1.4"/><circle cx="20" cy="18" r="5" stroke="#B8922A" stroke-width="1.4"/><circle cx="20" cy="18" r="2" fill="#B8922A" opacity="0.6"/><path d="M8 34 L12 30 L28 30 L32 34" stroke="#B8922A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/></svg></div><h4>Thực hành đóng vai có ghi hình</h4><p>Buổi 7 quay video toàn bộ buổi thực hành. Học viên nhận lại để tự xem và học từ điểm yếu của chính mình.</p></div>
+      <div class="act-card fade d1"><div class="act-icon"><svg viewBox="0 0 40 40" fill="none"><path d="M8 32 L8 14 L20 6 L32 14 L32 32 Z" stroke="#B8922A" stroke-width="1.4" stroke-linejoin="round"/><rect x="15" y="22" width="10" height="10" stroke="#B8922A" stroke-width="1.2"/><rect x="13" y="14" width="6" height="6" rx="1" stroke="#B8922A" stroke-width="1.1" opacity="0.6"/><rect x="21" y="14" width="6" height="6" rx="1" stroke="#B8922A" stroke-width="1.1" opacity="0.6"/></svg></div><h4>Case từ dự án BDS đối tác</h4><p>Toàn bộ bài tập dùng sản phẩm thực từ Bighomes và F1 đối tác. Không chương trình nào khác có điều này.</p></div>
+      <div class="act-card fade d2"><div class="act-icon"><svg viewBox="0 0 40 40" fill="none"><circle cx="12" cy="14" r="5" stroke="#B8922A" stroke-width="1.4"/><circle cx="28" cy="14" r="5" stroke="#B8922A" stroke-width="1.4"/><circle cx="20" cy="28" r="5" stroke="#B8922A" stroke-width="1.6" fill="rgba(184,146,42,.08)"/><line x1="17" y1="19" x2="17" y2="24" stroke="#B8922A" stroke-width="1.1" stroke-linecap="round" opacity="0.5"/><line x1="23" y1="19" x2="23" y2="24" stroke="#B8922A" stroke-width="1.1" stroke-linecap="round" opacity="0.5"/></svg></div><h4>Học nhóm có cấu trúc</h4><p>Nhóm cố định 3 người. Sau mỗi buổi tự tổ chức thêm một lượt thực hành để kỹ năng thấm vào phản xạ.</p></div>
+      <div class="act-card fade"><div class="act-icon"><svg viewBox="0 0 40 40" fill="none"><rect x="6" y="4" width="28" height="32" rx="3" stroke="#B8922A" stroke-width="1.4"/><line x1="12" y1="13" x2="28" y2="13" stroke="#B8922A" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/><line x1="12" y1="19" x2="28" y2="19" stroke="#B8922A" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/><line x1="12" y1="25" x2="22" y2="25" stroke="#B8922A" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/><path d="M24 28 L27 32 L34 24" stroke="#B8922A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>Nhật ký cố vấn</h4><p>Mỗi tuần ghi lại 1 tình huống thực tế ngoài lớp. Nhật ký này là tài sản học viên mang theo sau khóa học.</p></div>
+      <div class="act-card fade d1"><div class="act-icon"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="12" r="6" stroke="#B8922A" stroke-width="1.5"/><path d="M10 36 C10 28 14 25 20 25 C26 25 30 28 30 36" stroke="#B8922A" stroke-width="1.5" stroke-linecap="round"/><circle cx="32" cy="16" r="4" stroke="#B8922A" stroke-width="1.2" opacity="0.6"/><path d="M28 14 L26 14" stroke="#B8922A" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><path d="M28 16 L26 16" stroke="#B8922A" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><path d="M28 18 L26 18" stroke="#B8922A" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/></svg></div><h4>Gặp riêng người hướng dẫn</h4><p>2 buổi 15 phút gặp riêng với người hướng dẫn vào tuần 3 và tuần 5. Rà soát tiến độ và điều chỉnh theo từng người.</p></div>
+      <div class="act-card fade d2"><div class="act-icon"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="10" r="4" stroke="#B8922A" stroke-width="1.4"/><circle cx="8" cy="28" r="4" stroke="#B8922A" stroke-width="1.3" opacity="0.7"/><circle cx="32" cy="28" r="4" stroke="#B8922A" stroke-width="1.3" opacity="0.7"/><line x1="20" y1="14" x2="10" y2="24" stroke="#B8922A" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/><line x1="20" y1="14" x2="30" y2="24" stroke="#B8922A" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/><path d="M12 30 Q20 36 28 30" stroke="#B8922A" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="2 2" opacity="0.5"/></svg></div><h4>Cộng đồng học viên REX Certified</h4><p>Nhóm riêng cho học viên Cấp II. Câu hỏi thực chiến được phản hồi trong 24 giờ. Quyền truy cập vĩnh viễn sau khi tốt nghiệp.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="dang-ky">
+  <div class="wrap">
+    <div class="label" style="justify-content:center;">Học phí</div>
+    <h2 style="text-align:center;">Giá Early Bird còn đến<br><em>30/04/2026</em></h2>
+    <div class="rule rule-c"></div>
+    <div class="pricing-grid fade">
+      <div class="pc">
+        <div class="pc-type">Học phí thông thường</div>
+        <div class="pc-price">18 triệu</div>
+        <div class="pc-unit">VND / học viên</div>
+        <ul class="pc-feats"><li>10 buổi học trực tiếp hoặc Zoom</li><li>Nhóm học nhóm 3 người</li><li>Nhật ký cố vấn có hướng dẫn</li><li>2 buổi gặp riêng với người hướng dẫn</li><li>Cộng đồng cựu học viên REX Certified</li><li>Toàn bộ tài liệu học tập</li></ul>
+      </div>
+      <div class="pc feat">
+        <div class="pc-tag">Early Bird · Tiết kiệm 3 triệu</div>
+        <div class="pc-type">Đăng ký trước 30/04/2026</div>
+        <div class="pc-price">15 triệu</div>
+        <div class="pc-unit">VND / học viên</div>
+        <div class="pc-dl">Ưu đãi kết thúc 30/04/2026 hoặc khi đủ 50 suất</div>
+        <ul class="pc-feats"><li>10 buổi học trực tiếp hoặc Zoom</li><li>Nhóm học nhóm 3 người</li><li>Nhật ký cố vấn có hướng dẫn</li><li>2 buổi gặp riêng với người hướng dẫn</li><li>Cộng đồng cựu học viên REX Certified</li><li>Toàn bộ tài liệu học tập</li></ul>
+      </div>
+    </div>
+    <div class="pricing-cta fade d1">
+      <a href="https://zalo.me/0912345678" target="_blank" class="btn btn-gold btn-lg">Đăng ký Early Bird qua Zalo</a>
+      <p class="p-note">Nhắn Zalo · Phản hồi trong 30 phút · Cam kết hoàn 100% sau buổi đầu · <strong>0912 345 678</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq sec">
+  <div class="wrap-sm">
+    <div class="label">Câu hỏi thường gặp</div>
+    <h2>Những điều muốn biết<br>trước khi <em>quyết định</em></h2>
+    <div class="faq-list fade">
+      <div class="faq-item"><button class="faq-q" onclick="faq(this)">Tôi đã học TTA rồi, REX Certified có bị trùng không?<div class="faq-ico">+</div></button><div class="faq-body"><div class="faq-inner"><strong>TTA dạy tư duy cố vấn.</strong> REX Certified đưa tư duy đó vào ngữ cảnh BDS cụ thể: xây bài toán tài chính, so sánh dự án, xử lý 5 điểm nghẽn đặc thù BDS Việt Nam. Hai chương trình bổ sung nhau, không thay thế nhau.</div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="faq(this)">Nếu không hài lòng thì hoàn tiền như thế nào?<div class="faq-ico">+</div></button><div class="faq-body"><div class="faq-inner">Tham gia buổi học đầu tiên. Nếu anh/chị không hài lòng vì bất kỳ lý do gì, <strong>liên hệ trong 24 giờ sau buổi 1</strong>, chúng tôi hoàn 100% học phí. Không câu hỏi, không điều kiện.</div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="faq(this)">Lịch học tối 20:00 có ảnh hưởng đến công việc ban ngày không?<div class="faq-ico">+</div></button><div class="faq-body"><div class="faq-inner">Chương trình được thiết kế cho người đang đi làm toàn thời gian trong ngành BDS. <strong>90 phút, thứ Ba và thứ Năm, 20:00–21:30.</strong> Không cần nghỉ làm. Học viên áp dụng ngay trong tuần học thường thấy kết quả nhanh nhất.</div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="faq(this)">Tôi đang làm cho sàn khác, không phải Bighomes, có phù hợp không?<div class="faq-ico">+</div></button><div class="faq-body"><div class="faq-inner">Hoàn toàn phù hợp. <strong>REX là tổ chức đào tạo BDS độc lập,</strong> không phải bộ phận của Bighomes. Kỹ năng học được áp dụng với bất kỳ sản phẩm BDS nào anh/chị đang bán.</div></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="faq(this)">Không thi lấy chứng chỉ thì học có ý nghĩa không?<div class="faq-ico">+</div></button><div class="faq-body"><div class="faq-inner">Có. <strong>10 buổi học là nơi kỹ năng được xây dựng.</strong> Kỳ thi chứng chỉ là bước xác nhận chính thức. Nhiều học viên đăng ký để nâng kỹ năng thực chiến BDS, thi chứng chỉ khi cảm thấy sẵn sàng.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="wrap" style="text-align:center;">
+    <div class="label" style="justify-content:center;color:rgba(212,168,60,.7);">Quyết định cuối</div>
+    <h2 style="font-size:clamp(20px,2.8vw,36px);">6 tháng nữa anh/chị vẫn<br>đang giải thích với khách,<br>hay khách <em>tự gọi hỏi ý kiến?</em></h2>
+    <div class="rule rule-c" style="margin:28px auto;"></div>
+    <p class="final-sub">Người giải thích sản phẩm BDS và chờ khách quyết định. Hay người khách chủ động gọi để hỏi ý kiến trước khi ký hợp đồng.</p>
+    <div class="final-shield">🛡️ Học thử 1 buổi. Không thấy khác biệt? Hoàn toàn bộ tiền.</div>
+    <br><br>
+    <a href="https://zalo.me/0912345678" target="_blank" class="btn btn-gold btn-lg">Nhắn Zalo để giữ suất ngay</a>
+  </div>
+</section>
+
+<footer>
+  <em>REX</em> — Certified Real Estate Expert &nbsp;·&nbsp; Khai giảng 15/05/2026 &nbsp;·&nbsp; rex.vn &nbsp;·&nbsp; 0912 345 678
+</footer>
+
+<div class="mob">
+  <a href="https://zalo.me/0912345678" target="_blank">Giữ suất Early Bird · 15.000.000đ</a>
+  <div class="mob-sub">Còn 35 suất · Khai giảng 15/05 · Học thử 1 buổi, không hài lòng hoàn tiền</div>
 </div>
 
 <script>
-function isMobile(){return window.innerWidth<=768;}
-const slides=document.querySelectorAll('.slide');
-const N=slides.length;
-let cur=0;
+function tick(){const e=new Date('2026-04-30T23:59:59+07:00').getTime(),r=Math.max(0,e-Date.now()),d=Math.floor(r/86400000),h=Math.floor(r%86400000/3600000),m=Math.floor(r%3600000/60000),s=Math.floor(r%60000/1000),p=n=>String(n).padStart(2,'0'),set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=p(v)};set('cd-d',d);set('cd-h',h);set('cd-m',m);set('cd-s',s);set('hd',d);set('hh',h);set('hm',m);set('hs',s);}
+tick();setInterval(tick,1000);
 
-function retrigger(el){
-  el.querySelectorAll('.a1,.a2,.a3,.a4,.a5,.aL,.aR,.aS').forEach(e=>{
-    [...e.classList].filter(c=>/^a[1-5LRS]$/.test(c)).forEach(c=>{
-      e.classList.remove(c); void e.offsetWidth; e.classList.add(c);
-    });
-  });
-  el.querySelectorAll('[style*="animation"]').forEach(e=>{
-    const a=e.style.animation; if(!a||a.includes('infinite')) return;
-    e.style.animation='none'; void e.offsetWidth; e.style.animation=a;
-  });
-}
+function faq(btn){const item=btn.parentElement,body=item.querySelector('.faq-body'),open=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-body').style.maxHeight='0'});if(!open){item.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';}}
 
-function showSlide(n){
-  if(isMobile()) return;
-  slides[cur].style.display='none';
-  cur=(n+N)%N;
-  slides[cur].style.display='flex';
-  document.getElementById('ctr').textContent=(cur+1)+' / '+N;
-  retrigger(slides[cur]);
-}
-function go(d){showSlide(cur+d);}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.08});
+document.querySelectorAll('.fade').forEach(el=>io.observe(el));
 
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key==='ArrowDown') go(1);
-  if(e.key==='ArrowLeft'||e.key==='ArrowUp') go(-1);
-});
+function count(el){const t=+el.dataset.t;let c=0;const step=t/(1600/16),tm=setInterval(()=>{c=Math.min(c+step,t);el.textContent=Math.floor(c);if(c>=t)clearInterval(tm);},16);}
+const co=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){count(e.target);co.unobserve(e.target);}}),{threshold:.5});
+document.querySelectorAll('.cnt[data-t]').forEach(el=>co.observe(el));
 
-function toggleFS(){
-  if(!document.fullscreenElement){document.documentElement.requestFullscreen();document.getElementById('fsBtn').textContent='✕ Exit';}
-  else{document.exitFullscreen();document.getElementById('fsBtn').textContent='⛶ Full';}
-}
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60),{passive:true});
 
-function applyMode(){
-  if(isMobile()){
-    document.body.style.overflow='auto';
-    document.body.style.height='auto';
-    slides.forEach(s=>{
-      s.style.display='flex';
-      s.style.width='100%';
-      s.style.height='auto';
-      s.style.minHeight='auto';
-      s.style.position='relative';
-      s.style.overflowX='hidden';
-    });
-    document.querySelector('.nav').style.display='none';
-    document.getElementById('pcv').style.display='none';
-  } else {
-    document.body.style.overflow='hidden';
-    document.body.style.height='100vh';
-    slides.forEach((s,i)=>{
-      s.style.display= i===cur ? 'flex' : 'none';
-      s.style.width='100vw';
-      s.style.height='100vh';
-      s.style.minHeight='';
-      s.style.position='relative';
-      s.style.overflowX='hidden';
-    });
-    document.querySelector('.nav').style.display='flex';
-    document.getElementById('pcv').style.display='block';
-    document.getElementById('ctr').textContent=(cur+1)+' / '+N;
-  }
-}
-
-applyMode();
-window.addEventListener('resize',()=>applyMode());
-
-(function(){
-  const cv=document.getElementById('pcv'),cx=cv.getContext('2d'),pts=[];
-  function resize(){cv.width=innerWidth;cv.height=innerHeight;}
-  resize();window.addEventListener('resize',resize);
-  for(let i=0;i<28;i++) pts.push({
-    x:Math.random()*innerWidth,y:Math.random()*innerHeight,
-    r:Math.random()*2.2+0.7,
-    vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35-.12,
-    a:Math.random()*.38+.08,da:(Math.random()>.5?1:-1)*.003
-  });
-  function draw(){
-    cx.clearRect(0,0,cv.width,cv.height);
-    pts.forEach(p=>{
-      cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      cx.fillStyle=`rgba(196,164,78,${p.a})`;cx.fill();
-      p.x+=p.vx;p.y+=p.vy;p.a+=p.da;
-      if(p.a>.46||p.a<.07) p.da*=-1;
-      if(p.x<-4) p.x=cv.width+4; if(p.x>cv.width+4) p.x=-4;
-      if(p.y<-4) p.y=cv.height+4; if(p.y>cv.height+4) p.y=-4;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
+function loadVSL(){alert('Điền YouTube video ID của Coach Duy vào hàm loadVSL()');}
+function playTV(wrap,id){alert('Điền YouTube video ID học viên vào hàm playTV()');}
 </script>
 
-<style>
-@media(max-width:768px){
-  body{overflow:auto !important;height:auto !important;}
-  .slide{overflow:visible !important;padding:40px 18px 52px !important;width:100% !important;height:auto !important;min-height:auto !important;}
-  .content{padding:0 !important;max-width:100% !important;}
-  .bar-left,.bar-right,.border-practice{display:none !important;}
-  [style*="font-size:54px"]{font-size:30px !important;line-height:1.15 !important;}
-  [style*="font-size:68px"]{font-size:32px !important;}
-  [style*="font-size:46px"]{font-size:28px !important;}
-  [style*="font-size:260px"]{display:none !important;}
-  [style*="font-size:36px"]{font-size:22px !important;}
-  .g2,.g3{grid-template-columns:1fr !important;gap:12px !important;}
-  .card,.card-dark{padding:16px !important;}
-  .ct,.ct-d{font-size:15px !important;}
-  .cb,.cb-d{font-size:13px !important;}
-  .trow{padding:12px 14px !important;}
-  .ttxt{font-size:15px !important;}
-  .tnum{font-size:24px !important;min-width:26px !important;}
-  .eyebrow,.eyebrow-d{font-size:18px !important;margin-bottom:14px !important;}
-  .footer-dark,.footer-light,.footer-parchment{font-size:10px !important;letter-spacing:1.5px !important;height:40px !important;}
-}
-</style>
+
 </body>
 </html>
