@@ -144,8 +144,9 @@ h3{font-size:var(--f-h3)}
 .hero-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .hero-card::after{content:"";position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(196,154,60,.2) 0%,transparent 70%);pointer-events:none}
 .hc-content{position:relative;z-index:1}
-.eb-tag{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);color:var(--navy);font-weight:800;padding:7px 16px;border-radius:99px;font-size:11px;letter-spacing:1.5px;margin-bottom:20px;text-transform:uppercase;box-shadow:0 4px 16px var(--gold-glow)}
-.eb-tag::before{content:"";width:6px;height:6px;background:var(--navy);border-radius:50%}
+.eb-tag-wrap{text-align:center;margin-bottom:24px}
+.eb-tag{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);color:var(--navy);font-weight:800;padding:8px 18px;border-radius:99px;font-size:11px;letter-spacing:1px;text-transform:uppercase;box-shadow:0 4px 16px var(--gold-glow);max-width:100%;white-space:nowrap}
+.eb-tag::before{content:"";width:6px;height:6px;background:var(--navy);border-radius:50%;flex-shrink:0}
 
 .price-line{display:flex;align-items:baseline;gap:12px;margin:8px 0 4px;flex-wrap:wrap}
 .price-old{text-decoration:line-through;color:var(--d3);font-size:18px;font-family:var(--f-mono);font-weight:500}
@@ -153,11 +154,11 @@ h3{font-size:var(--f-h3)}
 .price-suffix{font-size:14px;color:var(--d2);font-weight:500}
 .save-badge{display:inline-block;background:var(--green-soft);color:#6EE7B7;font-weight:600;padding:5px 12px;border-radius:6px;font-size:12px;margin-top:8px;border:1px solid rgba(16,185,129,.3)}
 
-.anchor-display{margin:4px 0 24px;padding:20px 0;border-bottom:1px solid rgba(196,154,60,.2)}
-.anchor-label{font-size:11px;color:var(--d3);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:10px}
-.anchor-num{font-family:var(--f-mono);font-size:42px;font-weight:700;color:var(--gold2);line-height:1;letter-spacing:-1px}
-.anchor-suffix{font-size:18px;color:var(--d2);font-weight:500;letter-spacing:0;font-family:var(--f-sans)}
-.anchor-foot{font-size:12px;color:var(--d3);margin-top:12px;line-height:1.5}
+.anchor-display{margin:4px 0 24px;padding:24px 0;border-bottom:1px solid rgba(196,154,60,.2);text-align:center}
+.anchor-label{font-size:11px;color:var(--d3);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:14px}
+.anchor-num{font-family:var(--f-mono);font-size:48px;font-weight:700;color:var(--gold2);line-height:1;letter-spacing:-2px;display:block;text-align:center}
+.anchor-suffix{font-size:18px;color:var(--d2);font-weight:500;letter-spacing:0;font-family:var(--f-sans);margin:0 4px}
+.anchor-foot{font-size:12px;color:var(--d3);margin-top:14px;line-height:1.5;text-align:center;max-width:280px;margin-left:auto;margin-right:auto}
 
 .cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:20px 0}
 .cd-cell{background:rgba(255,255,255,.04);border:1px solid rgba(196,154,60,.25);border-radius:var(--r1);padding:12px 4px;text-align:center;backdrop-filter:blur(8px)}
@@ -169,7 +170,8 @@ h3{font-size:var(--f-h3)}
 .refund-box strong{color:#6EE7B7;display:block;margin-bottom:2px;font-weight:700}
 
 .seat-bar{margin-top:18px}
-.seat-info{display:flex;justify-content:space-between;font-size:11px;color:var(--d3);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;font-weight:600}
+.seat-info{display:flex;justify-content:space-between;font-size:11px;color:var(--d3);margin-bottom:8px;letter-spacing:.3px;text-transform:uppercase;font-weight:600;flex-wrap:wrap;gap:8px}
+@media(max-width:380px){.seat-info{font-size:10px;letter-spacing:0}}
 .seat-track{height:6px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;border:1px solid rgba(196,154,60,.15)}
 .seat-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold3));width:64%;border-radius:99px;box-shadow:0 0 8px var(--gold-glow)}
 .dot-live{display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite;margin-right:4px;box-shadow:0 0 6px var(--green)}
@@ -212,6 +214,7 @@ h3{font-size:var(--f-h3)}
 .vsl{background:var(--navy-deep);padding:var(--sp-section) 0;position:relative}
 .vsl-card{position:relative;max-width:980px;margin:0 auto}
 .vsl-card-eyebrow{text-align:center;margin-bottom:16px}
+.vsl > .wrap > h2,
 .vsl-card h2{color:var(--white);text-align:center;margin-bottom:16px;font-size:var(--f-h1)}
 .vsl-sub{text-align:center;color:var(--d2);margin-bottom:36px;font-size:17px;max-width:640px;margin-left:auto;margin-right:auto}
 .vsl-frame-wrap{position:relative;padding:8px;background:linear-gradient(135deg,var(--gold),var(--gold-dim),var(--gold));border-radius:var(--r3);box-shadow:0 32px 80px rgba(0,0,0,.5),0 0 64px rgba(196,154,60,.2)}
@@ -559,7 +562,7 @@ h3{font-size:var(--f-h3)}
       <div class="fade">
         <div class="hero-card">
           <div class="hc-content">
-            <span class="eb-tag">Khóa đầu tiên · Khai giảng 15/05</span>
+            <div class="eb-tag-wrap"><span class="eb-tag">Khóa đầu tiên · Khai giảng 15/05</span></div>
             <div class="anchor-display">
               <div class="anchor-label">Tổng giá trị chương trình</div>
               <div class="anchor-num">70<span class="anchor-suffix"> đến </span>100<span class="anchor-suffix"> triệu</span></div>
@@ -624,7 +627,8 @@ h3{font-size:var(--f-h3)}
     <p class="vsl-sub fade">Và cách REX thay đổi điều đó với hệ thống 5 cấp chứng chỉ đầu tiên tại Việt Nam</p>
     <div class="vsl-frame-wrap fade">
       <div class="vsl-frame">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="REX Real Estate Expert" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- THAY VIDEO ID THẬT VÀO ĐÂY: tìm trong URL https://www.youtube.com/watch?v=XXXXXXXXXXX và paste XXX vào src bên dưới -->
+        <iframe src="https://www.youtube.com/embed/e7jvJJYRd8E" title="REX Real Estate Expert" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
     <div class="vsl-cta">
